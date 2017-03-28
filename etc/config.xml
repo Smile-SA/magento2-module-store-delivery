@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\StorePickup
+ * @author    Romain Ruaud <romain.ruaud@smile.fr>
+ * @copyright 2017 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <smile_store_pickup>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Smile\StorePickup\Model\Carrier</model>
+                <name>Store Pickup</name>
+                <price>0.00</price>
+                <title>StorePickup</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
+                </specificerrmsg>
+            </smile_store_pickup>
+        </carriers>
+    </default>
+</config>
+
