@@ -33,9 +33,14 @@ use Psr\Log\LoggerInterface;
 class Carrier extends AbstractCarrier implements CarrierInterface
 {
     /**
+     * Constant for method code
+     */
+    const METHOD_CODE = 'smile_store_pickup';
+
+    /**
      * @var string
      */
-    protected $_code = 'smile_store_pickup';
+    protected $_code = self::METHOD_CODE;
 
     /**
      * Whether this carrier has fixed rates calculation

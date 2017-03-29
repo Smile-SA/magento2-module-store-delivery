@@ -1,0 +1,261 @@
+// /**
+//  * DISCLAIMER
+//  *
+//  * Do not edit or add to this file if you wish to upgrade this module to newer
+//  * versions in the future.
+//  *
+//  *
+//  * @category  Smile
+//  * @package   Smile\StorePickup
+//  * @author    Romain Ruaud <romain.ruaud@smile.fr>
+//  * @copyright 2017 Smile
+//  * @license   Open Software License ("OSL") v. 3.0
+//  */
+
+
+//
+//  Store Pickup - Checkout Onepage
+//  _____________________________________________
+
+body.checkout-index-index {
+
+    .smile-store-pickup {
+        height: 600px;
+
+        .map {
+            width: 100%;
+            height: 100%;
+            background: #666;
+        }
+
+        .address-info {
+            display: flex;
+            padding: 10px;
+
+            .box-title {
+                margin-right: 10px;
+                font-weight: bold;
+            }
+
+            .address {
+                flex: 1;
+            }
+        }
+
+        .opening-hours-info {
+            padding: 10px;
+            clear: both;
+
+            .box-title {
+                margin-right: 10px;
+                p {
+                    font-weight: bold;
+                    float: left;
+                }
+
+                .showopeninghours {
+                    float: left;
+                    margin-left: 10px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 13px;
+
+                    :after {
+                        content: @icon-down;
+                        display: inline-block;
+                        font-family: @icons__font-name;
+                        vertical-align: top;
+                        margin: 0;
+                        color: inherit;
+                        font-size: 10px;
+                        line-height: 22px;
+                        margin-left: 10px;
+                    }
+                }
+
+                .showopeninghours.active {
+                    :after {
+                        content: @icon-up;
+                    }
+                }
+            }
+        }
+
+        .contextual-bar {
+            position: absolute;
+
+            margin: 20px;
+            padding: 0px 0px;
+            background: #FFFFFF;
+            z-index: 500;
+            box-shadow: 0 1px 10px;
+            display: flex;
+            flex-direction: column;
+
+            .shop-search {
+                width: 300px;
+                .fulltext-search-wrapper {
+                    border-bottom: 1px solid #c2c2c2;
+                    padding: 10px;
+
+                    .form {
+                        display: flex;
+                        padding: 10px 0 5px;
+                        align-items: center;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: center;
+
+                        .field {
+                            flex: 1;
+                        }
+
+                        .actions-toolbar {
+
+                            .primary .action {
+                                margin: 0;
+                                border-top-left-radius: 0px;
+                                border-bottom-left-radius: 0px;
+                                span {
+                                    line-height: 1.3em;
+                                }
+                            }
+                        }
+
+                        .geolocalize-container {
+                            flex: 0 0 100%;
+                            a {
+                                width:100%;
+                                text-align:center;
+                            }
+                        }
+
+                        .store-search-form {
+                            display: flex;
+                            margin-left: auto;
+                            align-items: center;
+                            flex: 0 0 100%;
+                            margin-top: 5px;
+                        }
+                    }
+                }
+            }
+
+            .search-result-list {
+                flex: 1;
+
+                .search-result-header {
+                    background-color: #8f8f8f;
+                    padding: 10px;
+                    display: flex;
+                    p {
+                        margin: 0;
+                        color: #FFF;
+                        flex: 1;
+                    }
+                    a {
+                        color: #FFF;
+                        text-decoration: underline;
+                        font-size: 80%;
+                        cursor: pointer;
+                    }
+                }
+
+                ul {
+                    overflow-y: scroll;
+                    max-height: 400px;
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+
+                    li.result-item {
+                        margin: 0;
+                        padding: 5px;
+
+                    }
+
+                    li.result-item:nth-child(even) {
+                        background: #F0F0F0;
+                    }
+                }
+            }
+
+            .shop-details {
+
+                .search-result-list {
+                    ul {
+                        max-height: 180px;
+                    }
+                }
+
+                .header {
+                    .store-name {
+                        max-width: 85%;
+                        float: left;
+                    }
+
+                    .actions {
+                        float: right;
+                    }
+                }
+
+                width: auto;
+                max-width: 480px;
+
+                .shop-details-wrapper {
+                    padding: 10px;
+                    .actions {
+                        .right {
+                            margin-left: auto;
+                        }
+                    }
+                }
+
+                h2 {
+                    margin-top: 10px;
+                    margin-left: 10px;
+                    font-weight: bold;
+                    color: #333333;
+                }
+
+                .opening-hours-table {
+                    td {
+                        padding: 2px 2px;
+                    }
+
+                    td:first-child {
+                        padding-right: 10px;
+                    }
+                }
+
+                .actions-toolbar {
+                    .actions {
+                        margin: 5px;
+                        border-top: 1px solid #cccccc;
+                        padding-top: 10px;
+                        display: flex;
+                    }
+                }
+
+                .close {
+                    .lib-button-icon(
+                            @icon-remove,
+                        @_icon-font-size: 32px,
+                        @_icon-font-line-height: 32px,
+                        @_icon-font-text-hide: true
+                    );
+                    .lib-button-reset();
+                    height: 40px;
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    width: 40px;
+                    color: @color-gray56;
+                    :hover {
+                        color: #333333;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<div class="smile-store-pickup" id="smile-store-pickup-container" style="display:none" data-bind="{ visible: isVisible(), afterRender: initComponent }">
+    <!-- ko if: isActive() -->
+        <input type="hidden"
+               data-bind="attr: {
+                   'value' : getCurrentStore,
+                   'id': 's_method_' + getMethodCode,
+               }" />
+
+            <!-- ko if: isVisible() -->
+                <!-- ko foreach: getRegion('store-pickup') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            <!-- /ko -->
+
+    <!-- /ko -->
+</div>
