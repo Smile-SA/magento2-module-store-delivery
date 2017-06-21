@@ -1,14 +1,20 @@
 define([
     'ko',
     'smile-storelocator-map',
+    'Magento_Checkout/js/model/quote',
+    'Magento_Customer/js/model/address-list',
+    'Magento_Checkout/js/view/shipping',
+    'Smile_StorePickup/js/model/store-address',
     'smile-map-markers',
     'smile-storelocator-store-collection'
-], function(ko, StoreLocatorMap){
+], function(ko, StoreLocatorMap, quote, addressList, shipping, storePickupAddress){
 
     return StoreLocatorMap.extend({
 
         initialize: function () {
             this._super();
+            this.currentRetailerId = ko.observable();
+            this.currentRetailerId.subscribe(this.setShippingAddress.bind(this));
         },
 
         /**
@@ -40,6 +46,20 @@ define([
          */
         resetHash : function() {
             return false;
+        },
+
+        setShippingAddress : function() {
+            var retailerData = false;
+            this.markers().forEach(function(marker) {
+                if (parseInt(marker.id, 10) === parseInt(this.currentRetailerId(), 10)) {
+                    retailerData = marker.addressData;
+                    retailerData.name = marker.name;
+                }
+            }.bind(this));
+
+            var address = new storePickupAddress(this.currentRetailerId(), retailerData);
+
+            quote.shippingAddress(address);
         }
     });
 });

@@ -26,6 +26,9 @@
                                     <item name="children" xsi:type="array">
                                         <item name="shipping-step" xsi:type="array">
                                             <item name="children" xsi:type="array">
+                                                <item name="smile-store-pickup-address-provider" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Smile_StorePickup/js/view/shipping-address/store-pickup</item>
+                                                </item>
                                                 <item name="shippingAddress" xsi:type="array">
                                                     <item name="children" xsi:type="array">
                                                         <item name="shippingAdditional" xsi:type="array">
@@ -48,15 +51,34 @@
                                                                                 </item>
                                                                                 <item name="store-list" xsi:type="array">
                                                                                     <item name="component" xsi:type="string">uiComponent</item>
-                                                                                    <item name="storeListTemplate" xsi:type="string">Smile_StoreLocator/retailer/search/store-list</item>
+                                                                                    <item name="storeListTemplate" xsi:type="string">Smile_StorePickup/checkout/shipping/store-list</item>
                                                                                     <item name="storeDetailTemplate" xsi:type="string">Smile_StoreLocator/retailer/search/store-detail</item>
                                                                                     <item name="searchResultsLabel" xsi:type="string" translate="true">%s result(s)</item>
                                                                                     <item name="nearbySearchLabel" xsi:type="string" translate="true">%s shop(s) nearby</item>
+                                                                                    <item name="viewAllLabel" xsi:type="string" translate="true">View all</item>
                                                                                 </item>
                                                                             </item>
                                                                         </item>
                                                                     </item>
                                                                 </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-information" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="ship-to" xsi:type="array">
+                                                    <item name="rendererTemplates" xsi:type="array">
+                                                        <item name="store-pickup" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-information/address-renderer/default</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Smile_StorePickup/shipping-information/address-renderer/store-pickup</item>
                                                             </item>
                                                         </item>
                                                     </item>

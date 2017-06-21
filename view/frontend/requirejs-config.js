@@ -16,7 +16,9 @@ var config = {
     map: {
         '*': {
             'smile-store-pickup': 'Smile_StorePickup/js/view/checkout/shipping/store-pickup',
-            'smile-store-pickup-map': 'Smile_StorePickup/js/view/checkout/shipping/store-map'
+            'smile-store-pickup-map': 'Smile_StorePickup/js/view/checkout/shipping/store-map',
+            'mage-checkout-shipping': 'Magento_Checkout/js/view/shipping',
+            'Magento_Checkout/js/view/shipping': 'Smile_StorePickup/js/view/checkout/shipping'
         }
     }
 };

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\StorePickup
+ * @author    Romain Ruaud <romain.ruaud@smile.fr>
+ * @copyright 2017 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="customer_address">
+            <field name="retailer_id">
+                <aspect name="to_quote_address" />
+            </field>
+        </fieldset>
+        <fieldset id="sales_convert_quote_address">
+            <field name="retailer_id">
+                <aspect name="to_order_address" />
+            </field>
+        </fieldset>
+        <fieldset id="order_address">
+            <field name="retailer_id">
+                <aspect name="to_customer_address" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

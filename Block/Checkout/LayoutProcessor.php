@@ -123,6 +123,7 @@ class LayoutProcessor implements LayoutProcessorInterface
             $geocoder = $jsLayout['components']['checkout']['children']['steps']['children']
             ['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']
             ['children']['smile_store_pickup']['children']['store-pickup']['children']['geocoder'];
+            // @codingStandardsIgnoreEnd
 
             $geocoder['provider'] = $this->map->getIdentifier();
             $geocoder             = array_merge($geocoder, $this->map->getConfig());
@@ -158,6 +159,7 @@ class LayoutProcessor implements LayoutProcessorInterface
                 'url'          => $this->storeLocatorHelper->getRetailerUrl($retailer),
                 'directionUrl' => $this->map->getDirectionUrl($address->getCoordinates()),
                 'setStoreData' => '', // $this->getSetStorePostData($retailer),
+                'addressData'  => $address->getData(),
             ];
 
             $markerData['schedule'] = array_merge(
