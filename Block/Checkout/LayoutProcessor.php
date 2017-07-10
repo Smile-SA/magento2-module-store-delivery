@@ -16,6 +16,7 @@ use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 use Magento\Shipping\Model\CarrierFactoryInterface;
 use Smile\Map\Api\MapInterface;
 use Smile\Map\Model\AddressFormatter;
+use Smile\Retailer\Api\Data\RetailerInterface;
 use Smile\Retailer\Model\ResourceModel\Retailer\CollectionFactory;
 
 /**
@@ -147,8 +148,9 @@ class LayoutProcessor implements LayoutProcessorInterface
     {
         $markers = [];
 
+        /** @var RetailerInterface $retailer */
         foreach ($this->getRetailerCollection() as $retailer) {
-            $address                = $retailer->getAddress();
+            $address                = $retailer->getExtensionAttributes()->getAddress();
             $coords                 = $address->getCoordinates();
             $markerData             = [
                 'id'           => $retailer->getId(),
@@ -167,7 +169,7 @@ class LayoutProcessor implements LayoutProcessorInterface
                 [
                     'calendar'            => $this->scheduleManager->getCalendar($retailer),
                     'openingHours'        => $this->scheduleManager->getWeekOpeningHours($retailer),
-                    'specialOpeningHours' => $retailer->getSpecialOpeningHours(),
+                    'specialOpeningHours' => $retailer->getExtensionAttributes()->getSpecialOpeningHours(),
                 ]
             );
 
