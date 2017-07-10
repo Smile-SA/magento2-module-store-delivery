@@ -1,0 +1,39 @@
+{
+    "name": "smile/module-store-pickup",
+    "type": "magento2-module",
+    "description": "Smile Store Pickup",
+    "keywords": ["magento2", "store pickup", "click in store", "pickup in store"],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "magento/framework": "*",
+        "magento/module-store": "*",
+        "magento/module-checkout": "*",
+        "smile/module-store-locator": "^1.2.0"
+    },
+    "require-dev": {
+        "smile/magento2-smilelab-quality-suite": "1.0.0"
+    },
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Romain Ruaud",
+            "email": "romain.ruaud@smile.fr"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Smile\\StorePickup\\" : ""
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
