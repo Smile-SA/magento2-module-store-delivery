@@ -1,4 +1,4 @@
-<div>
+<div class="heading" style="display: flex">
     <input type="radio" name="smile_storepickup_storeid" data-bind="{
         attr: {
            'name': 'store_pickup_retailerId',
@@ -8,11 +8,11 @@
         },
         checked: $parents[1].currentRetailerId
     }"/>
-</div>
-<div class="heading" style="display: flex">
-    <p class="name-label" style="flex: 1"><strong data-bind="text: name"></strong></p>
+    <label data-bind="{ attr: { 'for' : 'store_pickup_' + id} }">
+        <p class="name-label" style="flex: 1"><strong data-bind="text: name"></strong></p>
+    </label>
 </div>
 <div class="details" style="display: flex">
     <p class="address" style="flex:1"><em data-bind="html: address"></em></p>
-    <p><a href="#" onClick="return false;" data-bind="{click: $parents[1].selectMarker.bind($parents[1]), i18n: 'Details'}"></a></p>
+    <!--<p><a href="#" onClick="return false;" data-bind="{click: $parents[1].selectMarker.bind($parents[1]), i18n: 'Details'}"></a></p>-->
 </div>

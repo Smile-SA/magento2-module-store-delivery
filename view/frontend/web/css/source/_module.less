@@ -83,17 +83,15 @@ body.checkout-index-index {
 
         .contextual-bar {
             position: absolute;
-
-            margin: 20px;
             padding: 0px 0px;
             background: #FFFFFF;
             z-index: 500;
-            box-shadow: 0 1px 10px;
+            border: 1px solid #C0C0C0;
             display: flex;
             flex-direction: column;
 
             .shop-search {
-                width: 300px;
+                width: 250px;
                 .fulltext-search-wrapper {
                     border-bottom: 1px solid #c2c2c2;
                     padding: 10px;
@@ -116,6 +114,8 @@ body.checkout-index-index {
                                 margin: 0;
                                 border-top-left-radius: 0px;
                                 border-bottom-left-radius: 0px;
+                                padding: 4px 15px;
+                                font-size: 1.4rem;
                                 span {
                                     line-height: 1.3em;
                                 }
@@ -163,7 +163,7 @@ body.checkout-index-index {
 
                 ul {
                     overflow-y: scroll;
-                    max-height: 400px;
+                    max-height: 390px;
                     list-style-type: none;
                     padding: 0;
                     margin: 0;
@@ -171,7 +171,9 @@ body.checkout-index-index {
                     li.result-item {
                         margin: 0;
                         padding: 5px;
-
+                        .name-label {
+                            cursor: pointer;
+                        }
                     }
 
                     li.result-item:nth-child(even) {
