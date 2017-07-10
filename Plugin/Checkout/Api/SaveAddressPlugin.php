@@ -80,7 +80,6 @@ class SaveAddressPlugin
                 $shippingAddress->setFirstname($billigAddress->getFirstname());
                 $shippingAddress->setLastname($billigAddress->getLastname());
                 $shippingAddress->setTelephone($billigAddress->getTelephone());
-                //$shippingAddress->setGiftregistryItemId($giftRegistry->getId());
             }
         }
     }
