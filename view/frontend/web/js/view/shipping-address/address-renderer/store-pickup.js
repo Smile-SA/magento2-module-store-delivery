@@ -60,14 +60,19 @@ define([
             checkoutData.setSelectedShippingAddress(this.address().getKey());
         },
 
+        /**
+         * Update current quote address
+         */
         updateAddress: function() {
-            console.log("hello");
-            console.log(this.address());
             this.address(quote.shippingAddress());
-            console.log(this.address());
         },
 
-        getAddress: function() {
+        /**
+         * Checks if has a current address
+         *
+         * @returns {boolean}
+         */
+        hasAddress: function() {
             return (this.address().retailerId !== null);
         },
 
@@ -89,10 +94,7 @@ define([
                         text: buttons.save.text ? buttons.save.text : $t('Save Address'),
                         class: buttons.save.class ? buttons.save.class : 'action primary action-save-address',
                         click: function () {
-                            console.log('JEANLOUIS');
-                            console.log(self);
                             self.updateAddress();
-                            console.log("UPDATE ADDRESS CALLED");
                             this.closeModal();
                         }
                     },
