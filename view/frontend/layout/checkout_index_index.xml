@@ -31,31 +31,71 @@
                                                 </item>
                                                 <item name="shippingAddress" xsi:type="array">
                                                     <item name="children" xsi:type="array">
-                                                        <item name="shippingAdditional" xsi:type="array">
-                                                            <item name="component" xsi:type="string">uiComponent</item>
-                                                            <item name="displayArea" xsi:type="string">shippingAdditional</item>
-                                                            <item name="children" xsi:type="array">
-                                                                <item name="smile_store_pickup" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">smile-store-pickup</item>
-                                                                    <item name="children" xsi:type="array">
-                                                                        <item name="store-pickup" xsi:type="array">
-                                                                            <item name="component" xsi:type="string">smile-store-pickup-map</item>
-                                                                            <item name="template" xsi:type="string">Smile_StoreLocator/retailer/search</item>
-                                                                            <item name="displayArea" xsi:type="string">store-pickup</item>
-                                                                            <item name="children" xsi:type="array">
-                                                                                <item name="geocoder" xsi:type="array">
-                                                                                    <item name="component" xsi:type="string">smile-geocoder</item>
-                                                                                    <item name="searchTitleText" xsi:type="string" translate="true">Find a store :</item>
-                                                                                    <item name="searchPlaceholderText" xsi:type="string" translate="true">City, Zipcode, Department, ...</item>
-                                                                                    <item name="searchButtonText" xsi:type="string" translate="true">Search</item>
+                                                        <item name="address-list" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="deps" xsi:type="string">checkout.steps.shipping-step.smile-store-pickup-address-provider</item>
+                                                            </item>
+                                                            <item name="rendererTemplates" xsi:type="array">
+                                                                <item name="store-pickup" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Smile_StorePickup/js/view/shipping-address/address-renderer/store-pickup</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="popUpForm" xsi:type="array">
+                                                                            <item name="element" xsi:type="string">#opc-new-store-pickup-address</item>
+                                                                            <item name="options" xsi:type="array">
+                                                                                <item name="type" xsi:type="string">popup</item>
+                                                                                <item name="responsive" xsi:type="boolean">true</item>
+                                                                                <item name="innerScroll" xsi:type="boolean">true</item>
+                                                                                <item name="title" xsi:type="string" translate="true">Store Pickup Addresses</item>
+                                                                                <item name="trigger" xsi:type="string">opc-new-store-pickup-address</item>
+                                                                                <item name="buttons" xsi:type="array">
+                                                                                    <item name="save" xsi:type="array">
+                                                                                        <item name="text" xsi:type="string" translate="true">Select Store Address</item>
+                                                                                        <item name="class" xsi:type="string">action primary action-save-address</item>
+                                                                                    </item>
+                                                                                    <item name="cancel" xsi:type="array">
+                                                                                        <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                                                                        <item name="class" xsi:type="string">action secondary action-hide-popup</item>
+                                                                                    </item>
                                                                                 </item>
-                                                                                <item name="store-list" xsi:type="array">
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="children" xsi:type="array">
+                                                                        <item name="smile-store-pickup-additional-messages" xsi:type="array">
+                                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                                            <item name="displayArea" xsi:type="string">smile-store-pickup-additional-messages</item>
+                                                                            <item name="children" xsi:type="array">
+                                                                                <!-- Additional content to display can be added to this node -->
+                                                                                <item name="smile-store-pickup-default-message" xsi:type="array">
                                                                                     <item name="component" xsi:type="string">uiComponent</item>
-                                                                                    <item name="storeListTemplate" xsi:type="string">Smile_StorePickup/checkout/shipping/store-list</item>
-                                                                                    <item name="storeDetailTemplate" xsi:type="string">Smile_StoreLocator/retailer/search/store-detail</item>
-                                                                                    <item name="searchResultsLabel" xsi:type="string" translate="true">%s result(s)</item>
-                                                                                    <item name="nearbySearchLabel" xsi:type="string" translate="true">%s shop(s) nearby</item>
-                                                                                    <item name="viewAllLabel" xsi:type="string" translate="true">View all</item>
+                                                                                    <item name="template" xsi:type="string">Smile_StorePickup/shipping-address/address-renderer/store-pickup/default-message</item>
+                                                                                </item>
+                                                                            </item>
+                                                                        </item>
+                                                                        <item name="smile-store-pickup" xsi:type="array">
+                                                                            <item name="component" xsi:type="string">smile-store-pickup</item>
+                                                                            <item name="displayArea" xsi:type="string">smile-store-pickup</item>
+                                                                            <item name="children" xsi:type="array">
+                                                                                <item name="store-pickup" xsi:type="array">
+                                                                                    <item name="component" xsi:type="string">smile-store-pickup-map</item>
+                                                                                    <item name="template" xsi:type="string">Smile_StoreLocator/retailer/search</item>
+                                                                                    <item name="displayArea" xsi:type="string">store-pickup</item>
+                                                                                    <item name="children" xsi:type="array">
+                                                                                        <item name="geocoder" xsi:type="array">
+                                                                                            <item name="component" xsi:type="string">smile-geocoder</item>
+                                                                                            <item name="searchTitleText" xsi:type="string" translate="true">Find a store :</item>
+                                                                                            <item name="searchPlaceholderText" xsi:type="string" translate="true">City, Zipcode, Department, ...</item>
+                                                                                            <item name="searchButtonText" xsi:type="string" translate="true">Search</item>
+                                                                                        </item>
+                                                                                        <item name="store-list" xsi:type="array">
+                                                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                                                            <item name="storeListTemplate" xsi:type="string">Smile_StorePickup/checkout/shipping/store-list</item>
+                                                                                            <item name="storeDetailTemplate" xsi:type="string">Smile_StoreLocator/retailer/search/store-detail</item>
+                                                                                            <item name="searchResultsLabel" xsi:type="string" translate="true">%s result(s)</item>
+                                                                                            <item name="nearbySearchLabel" xsi:type="string" translate="true">%s shop(s) nearby</item>
+                                                                                            <item name="viewAllLabel" xsi:type="string" translate="true">View all</item>
+                                                                                        </item>
+                                                                                    </item>
                                                                                 </item>
                                                                             </item>
                                                                         </item>

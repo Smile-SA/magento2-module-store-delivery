@@ -49,13 +49,16 @@ define([
             if (this.init === true) {
                 return true;
             }
+
+            return true;
+/*
             var shippingMethod = quote.shippingMethod();
             var isStorePickup  = shippingMethod && shippingMethod.carrier_code && (shippingMethod.carrier_code === this.carrierCode);
-            return !quote.isVirtual() && isStorePickup;
+            return !quote.isVirtual() && isStorePickup;*/
         },
 
         initComponent: function() {
-            this.moveComponent();
+            //this.moveComponent();
             setTimeout(this.init(false), 10000);
         },
 
@@ -71,6 +74,10 @@ define([
             return this.carrierCode;
         },
 
+        renderComponent: function() {
+            this.requestChild('store-pickup')().canRenderMap(true);
+        }
+/*
         moveComponent: function() {
             var shippingMethodContainer = $('#checkout-shipping-method-load');
             var storePickupAdditionalContainer = $('#smile-store-pickup-container');
@@ -78,6 +85,6 @@ define([
                 var storePickupId = 'label_carrier_' + this.methodCode + '_' + this.carrierCode;
                 shippingMethodContainer.find('td#' + storePickupId).closest('table').after(storePickupAdditionalContainer);
             }
-        }
+        }*/
     });
 });

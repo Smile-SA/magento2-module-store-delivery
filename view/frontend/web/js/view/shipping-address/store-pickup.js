@@ -32,14 +32,14 @@ define(
     ) {
         'use strict';
 
-        //Register gift registry address provider
+        // Register store pickup address provider.
+        // Always add it, if the carrier is available.
+        // This will by default add a new "empty" address allowing the customer to select a shop.
         if(window.checkoutConfig.activeCarriers.indexOf('smile_store_pickup') !== -1) {
-            /*if (addressList.length === 0) {
-                addressList.push(new storePickupAddress(null, {}));
-            }*/
+            addressList.push(new storePickupAddress(null, {}));
         }
 
-        //Register StorePickup save shipping address processor
+        //Register StorePickup save shipping address processor.
         shippingSaveProcessor.registerProcessor('store-pickup', storePickupShippingSaveProcessor);
 
         return Component.extend({});

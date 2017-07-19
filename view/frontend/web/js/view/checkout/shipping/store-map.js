@@ -12,9 +12,37 @@ define([
     return StoreLocatorMap.extend({
 
         initialize: function () {
+
+            var self = this;
+
             this._super();
+            this.canRenderMap = ko.observable(false);
+            this.canRenderMap.subscribe(function (value) {
+                if (value) {
+                    self.initMap();
+                }
+            });
+
             this.currentRetailerId = ko.observable();
             this.currentRetailerId.subscribe(this.setShippingAddress.bind(this));
+        },
+
+        /**
+         * Delayed render map function : conditioned to the canRender() function : to avoid display issues if pre-drawing
+         * a Google map into an hidden element.
+         *
+         * Also prevent little browser performance issue by defering the loading only if the popup is opened.
+         *
+         * @param element
+         * @param component
+         */
+        initMap: function(element, component) {
+            if (element !== undefined) {
+                this.element = element;
+            }
+            if (this.canRenderMap()) {
+                this._super(this.element, this);
+            }
         },
 
         /**
@@ -48,6 +76,9 @@ define([
             return false;
         },
 
+        /**
+         * Set current shop as shipping address.
+         */
         setShippingAddress : function() {
             var retailerData = false;
             this.markers().forEach(function(marker) {

@@ -106,8 +106,9 @@ class LayoutProcessor implements LayoutProcessorInterface
         if ($this->carrierFactory->getIfActive($this->methodCode)) {
             // @codingStandardsIgnoreStart
             $storePickup = $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']
-            ['children']['smile_store_pickup']['children']['store-pickup'];
+            ['shipping-step']['children']['shippingAddress']['children']['address-list']
+            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
+            ['children']['store-pickup'];
             // @codingStandardsIgnoreEnd
 
             $storePickup['provider'] = $this->map->getIdentifier();
@@ -116,14 +117,16 @@ class LayoutProcessor implements LayoutProcessorInterface
 
             // @codingStandardsIgnoreStart
             $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']
-            ['children']['smile_store_pickup']['children']['store-pickup'] = $storePickup;
+            ['shipping-step']['children']['shippingAddress']['children']['address-list']
+            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
+            ['children']['store-pickup'] = $storePickup;
             // @codingStandardsIgnoreEnd
 
             // @codingStandardsIgnoreStart
             $geocoder = $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']
-            ['children']['smile_store_pickup']['children']['store-pickup']['children']['geocoder'];
+            ['shipping-step']['children']['shippingAddress']['children']['address-list']
+            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
+            ['children']['store-pickup']['children']['geocoder'];
             // @codingStandardsIgnoreEnd
 
             $geocoder['provider'] = $this->map->getIdentifier();
@@ -131,8 +134,9 @@ class LayoutProcessor implements LayoutProcessorInterface
 
             // @codingStandardsIgnoreStart
             $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']
-            ['children']['smile_store_pickup']['children']['store-pickup']['children']['geocoder'] = $geocoder;
+            ['shipping-step']['children']['shippingAddress']['children']['address-list']
+            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
+            ['children']['store-pickup']['children']['geocoder'] = $geocoder;
             // @codingStandardsIgnoreEnd
         }
 

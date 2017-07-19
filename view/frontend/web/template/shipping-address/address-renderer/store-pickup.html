@@ -1,6 +1,39 @@
 <div class="shipping-address-item" data-bind="css: isSelected() ? 'selected-item' : 'not-selected-item'">
-    <span data-bind="i18n: 'Pickup my order in store'"></span><br/><br/><br/><br/><br/>
-    <button type="button" class="action action-select-shipping-item" data-bind="click: selectAddress">
+    <strong><span data-bind="i18n: 'Pickup my order in store'"></span></strong>
+    <!-- ko ifnot: getAddress() -->
+        <!-- ko foreach: getRegion('smile-store-pickup-additional-messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: getAddress() -->
+        <!-- ko text: address().prefix --><!-- /ko --> <!-- ko text: address().firstname --><!-- /ko -->
+        <!-- ko text: address().lastname --><!-- /ko --> <!-- ko text: address().suffix --><!-- /ko --><br/>
+        <!-- ko text: address().street --><!-- /ko --><br/>
+        <!-- ko text: address().city --><!-- /ko -->, <!-- ko text: address().region --><!-- /ko --> <!-- ko text: address().postcode --><!-- /ko --><br/>
+        <!-- ko text: getCountryName(address().countryId) --><!-- /ko --><br/>
+        <!-- ko text: address().telephone --><!-- /ko --><br/>
+        <!-- ko foreach: { data: address().customAttributes, as: 'element' } -->
+        <!-- ko foreach: { data: Object.keys(element), as: 'attribute' } -->
+        <!-- ko if: element[attribute].value != null -->
+        <!-- ko text: element[attribute].value --><!-- /ko --><br/>
+        <!-- /ko -->
+        <!-- ko if: element[attribute].value == null -->
+        <!-- ko text: element[attribute] --><!-- /ko --><br/>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <button type="button" class="action action-select-store-pickup" data-bind="click: showPopup, visible: isSelected()">
+        <span data-bind="i18n: 'Choose Store'"></span>
+    </button>
+    <button type="button" class="action action-select-shipping-item" data-bind="click: selectAddress, visible: !isSelected()">
         <span data-bind="i18n: 'Ship Here'"></span>
     </button>
+    <div id="opc-new-store-pickup-address" data-bind="visible: isFormPopUpVisible()">
+        <!-- ko foreach: getRegion('smile-store-pickup') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
 </div>
