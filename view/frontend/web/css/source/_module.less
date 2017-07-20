@@ -17,15 +17,22 @@
 //  Store Pickup - Checkout Onepage
 //  _____________________________________________
 
+@search-result-header-height: 20px;
+@search-result-header-padding: 10px;
+@fulltext-search-wrapper-height: 120px;
+@fulltext-search-wrapper-padding: 10px;
+
 body.checkout-index-index {
 
     .smile-store-pickup {
-        height: 600px;
+
+        height: 59vh;
 
         .map {
-            width: 100%;
             height: 100%;
             background: #666;
+            border: 1px solid #C0C0C0;
+            border-left-width: 0px;
         }
 
         .address-info {
@@ -82,19 +89,23 @@ body.checkout-index-index {
         }
 
         .contextual-bar {
-            position: absolute;
+            position: relative;
+            float:left;
             padding: 0px 0px;
             background: #FFFFFF;
             z-index: 500;
             border: 1px solid #C0C0C0;
             display: flex;
             flex-direction: column;
+            height: 100%;
 
             .shop-search {
                 width: 250px;
+                height: 100%;
                 .fulltext-search-wrapper {
                     border-bottom: 1px solid #c2c2c2;
-                    padding: 10px;
+                    height: @fulltext-search-wrapper-height;
+                    padding: @fulltext-search-wrapper-padding;
 
                     .form {
                         display: flex;
@@ -114,7 +125,7 @@ body.checkout-index-index {
                                 margin: 0;
                                 border-top-left-radius: 0px;
                                 border-bottom-left-radius: 0px;
-                                padding: 4px 15px;
+                                padding: 6px 15px;
                                 font-size: 1.4rem;
                                 span {
                                     line-height: 1.3em;
@@ -143,10 +154,11 @@ body.checkout-index-index {
 
             .search-result-list {
                 flex: 1;
-
+                height: ~'calc(100% - (@{fulltext-search-wrapper-height} + @{fulltext-search-wrapper-padding} + @{fulltext-search-wrapper-padding}))';
                 .search-result-header {
                     background-color: #8f8f8f;
-                    padding: 10px;
+                    height: @search-result-header-height;
+                    padding: @search-result-header-padding;
                     display: flex;
                     p {
                         margin: 0;
@@ -163,10 +175,10 @@ body.checkout-index-index {
 
                 ul {
                     overflow-y: scroll;
-                    max-height: 390px;
                     list-style-type: none;
                     padding: 0;
                     margin: 0;
+                    height: ~'calc(100% - (@{search-result-header-height} + @{search-result-header-padding} + @{search-result-header-padding} + 1px))';
 
                     li.result-item {
                         margin: 0;
