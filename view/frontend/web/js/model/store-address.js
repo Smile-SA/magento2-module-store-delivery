@@ -21,19 +21,18 @@ define([], function() {
      */
     return function (retailerId, addressData) {
         return {
-            retailerId: retailerId,
+            extension_attributes : {retailer_id: retailerId},
             countryId: addressData.country_id,
             regionId: (addressData.region && addressData.region.region_id) ? addressData.region.region_id : null,
             regionCode: (addressData.region) ? addressData.region.region_code : null,
             region: (addressData.region) ? addressData.region.region : null,
             customerId: addressData.customer_id,
             street: Array.isArray(addressData.street) ? addressData.street : [addressData.street],
-            company: addressData.company,
+            company: addressData.name,
             telephone: addressData.telephone,
             fax: addressData.fax,
             postcode: addressData.postcode,
             city: addressData.city,
-            name: addressData.name,
             firstname: addressData.firstname,
             lastname: addressData.lastname,
             middlename: addressData.middlename,
@@ -54,7 +53,7 @@ define([], function() {
             },
 
             getCacheKey: function() {
-                return this.getKey() + this.retailerId;
+                return this.getKey() + '_' + this.getRetailerId();
             },
 
             isEditable: function() {
@@ -66,7 +65,7 @@ define([], function() {
             },
 
             getRetailerId: function() {
-                return this.retailerId;
+                return this.extension_attributes.retailer_id;
             }
         }
     }

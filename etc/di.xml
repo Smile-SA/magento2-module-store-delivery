@@ -21,4 +21,11 @@
         <plugin name="store_pickup_save_address" type="Smile\StorePickup\Plugin\Checkout\Api\SaveAddressPlugin"/>
     </type>
 
+    <type name="Magento\Quote\Api\ShipmentEstimationInterface">
+        <plugin name="store_pickup_estimate_rates" type="Smile\StorePickup\Plugin\Quote\Api\ShipmentEstimationPlugin"/>
+    </type>
+
+    <type name="Magento\Quote\Api\ShippingMethodManagementInterface">
+        <plugin name="store_pickup_estimate_rates_by_address" type="Smile\StorePickup\Plugin\Quote\Api\ShippingMethodManagementPlugin"/>
+    </type>
 </config>

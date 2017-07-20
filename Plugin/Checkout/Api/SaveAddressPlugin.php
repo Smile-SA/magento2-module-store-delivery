@@ -69,17 +69,28 @@ class SaveAddressPlugin
         \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
     ) {
         $shippingAddress = $addressInformation->getShippingAddress();
-        $billigAddress   = $addressInformation->getBillingAddress();
+        $billingAddress  = $addressInformation->getBillingAddress();
 
         if ($shippingAddress->getExtensionAttributes() && $shippingAddress->getExtensionAttributes()->getRetailerId()) {
             $retailer = $this->retailerRepository->get($shippingAddress->getExtensionAttributes()->getRetailerId());
             if ($retailer->getId()) {
                 $shippingAddress->setCustomerAddressId($this->customerSession->getCustomerId());
-                $address = $this->addressDataFactory->create(['data' => $retailer->getAddress()->getData()]);
+                $address = $this->addressDataFactory->create(
+                    ['data' => $retailer->getAddress()->getData()]
+                );
                 $shippingAddress->importCustomerAddressData($address);
-                $shippingAddress->setFirstname($billigAddress->getFirstname());
-                $shippingAddress->setLastname($billigAddress->getLastname());
-                $shippingAddress->setTelephone($billigAddress->getTelephone());
+                $shippingAddress->setCompany($retailer->getName());
+
+                // Potentially copy billing fields (if present, this is not the case when customer is not logged in).
+                if (!$shippingAddress->getFirstname()) {
+                    $shippingAddress->setFirstname($billingAddress->getFirstname());
+                }
+                if (!$shippingAddress->getLastname()) {
+                    $shippingAddress->setLastname($billingAddress->getLastname());
+                }
+                if (!$shippingAddress->getTelephone()) {
+                    $shippingAddress->setTelephone($billingAddress->getTelephone());
+                }
             }
         }
     }

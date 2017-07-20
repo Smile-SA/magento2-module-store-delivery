@@ -23,8 +23,7 @@ define(
         'Magento_Checkout/js/model/payment-service',
         'Magento_Checkout/js/model/payment/method-converter',
         'Magento_Checkout/js/model/error-processor',
-        'Magento_Checkout/js/model/full-screen-loader',
-        'Magento_Checkout/js/action/select-billing-address'
+        'Magento_Checkout/js/model/full-screen-loader'
     ],
     function (
         ko,
@@ -34,8 +33,7 @@ define(
         paymentService,
         methodConverter,
         errorProcessor,
-        fullScreenLoader,
-        selectBillingAddressAction
+        fullScreenLoader
     ) {
         'use strict';
 

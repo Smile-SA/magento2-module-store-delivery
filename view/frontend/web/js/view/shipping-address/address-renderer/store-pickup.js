@@ -73,7 +73,7 @@ define([
          * @returns {boolean}
          */
         hasAddress: function() {
-            return (this.address().retailerId !== null);
+            return (this.address().getRetailerId() !== null);
         },
 
         showPopup: function() {

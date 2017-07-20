@@ -20,6 +20,8 @@ define(
         'uiComponent',
         'Smile_StorePickup/js/model/store-address',
         'Magento_Customer/js/model/address-list',
+        'Magento_Checkout/js/model/shipping-rate-service',
+        'Smile_StorePickup/js/model/shipping-rate-processor/store-pickup',
         'Magento_Checkout/js/model/shipping-save-processor',
         'Smile_StorePickup/js/model/shipping-save-processor/store-pickup'
     ],
@@ -27,6 +29,8 @@ define(
         Component,
         storePickupAddress,
         addressList,
+        shippingRateService,
+        storePickupShippingRateProcessor,
         shippingSaveProcessor,
         storePickupShippingSaveProcessor
     ) {
@@ -38,6 +42,9 @@ define(
         if(window.checkoutConfig.activeCarriers.indexOf('smile_store_pickup') !== -1) {
             addressList.push(new storePickupAddress(null, {}));
         }
+
+        // Register rate processor
+        shippingRateService.registerProcessor('store-pickup', storePickupShippingRateProcessor);
 
         //Register StorePickup save shipping address processor.
         shippingSaveProcessor.registerProcessor('store-pickup', storePickupShippingSaveProcessor);

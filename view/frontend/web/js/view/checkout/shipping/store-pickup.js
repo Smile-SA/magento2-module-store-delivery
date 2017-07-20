@@ -19,8 +19,10 @@ define([
     'uiComponent',
     'jquery',
     'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/action/select-shipping-method',
+    'Magento_Checkout/js/checkout-data',
     'Magento_Customer/js/customer-data'
-], function (Component, $, quote, storage) {
+], function (Component, $, quote, selectShippingMethodAction, checkoutData, storage) {
     'use strict';
 
     var retailer = storage.get('current-store');
@@ -36,6 +38,18 @@ define([
 
         initialize: function() {
             this._super();
+
+            quote.shippingAddress.subscribe(function () {
+                var type = quote.shippingAddress().getType();
+                if (type === 'store-pickup') {
+                    selectShippingMethodAction({
+                        carrier_code: this.getCarrierCode(),
+                        method_code: this.getMethodCode()
+                    });
+                    checkoutData.setSelectedShippingRate(this.getCarrierCode() + '_' + this.getMethodCode());
+                }
+            }.bind(this));
+
             this.observe(['retailerId', 'init']);
         },
 
@@ -51,14 +65,9 @@ define([
             }
 
             return true;
-/*
-            var shippingMethod = quote.shippingMethod();
-            var isStorePickup  = shippingMethod && shippingMethod.carrier_code && (shippingMethod.carrier_code === this.carrierCode);
-            return !quote.isVirtual() && isStorePickup;*/
         },
 
         initComponent: function() {
-            //this.moveComponent();
             setTimeout(this.init(false), 10000);
         },
 
@@ -77,14 +86,6 @@ define([
         renderComponent: function() {
             this.requestChild('store-pickup')().canRenderMap(true);
         }
-/*
-        moveComponent: function() {
-            var shippingMethodContainer = $('#checkout-shipping-method-load');
-            var storePickupAdditionalContainer = $('#smile-store-pickup-container');
-            if (shippingMethodContainer && storePickupAdditionalContainer) {
-                var storePickupId = 'label_carrier_' + this.methodCode + '_' + this.carrierCode;
-                shippingMethodContainer.find('td#' + storePickupId).closest('table').after(storePickupAdditionalContainer);
-            }
-        }*/
+
     });
 });
