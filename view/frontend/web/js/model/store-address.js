@@ -28,7 +28,7 @@ define([], function() {
             region: (addressData.region) ? addressData.region.region : null,
             customerId: addressData.customer_id,
             street: Array.isArray(addressData.street) ? addressData.street : [addressData.street],
-            company: addressData.name,
+            company: addressData.name ? addressData.name : (addressData.company ? addressData.company : ''),
             telephone: addressData.telephone,
             fax: addressData.fax,
             postcode: addressData.postcode,
