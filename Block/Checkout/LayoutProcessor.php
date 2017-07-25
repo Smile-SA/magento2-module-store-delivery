@@ -70,6 +70,11 @@ class LayoutProcessor implements LayoutProcessorInterface
     private $carrierFactory;
 
     /**
+     * @var \Magento\Framework\UrlInterface
+     */
+    private $urlBuilder;
+
+    /**
      * Constructor.
      *
      * @param \Smile\Map\Api\MapProviderInterface                            $mapProvider               Map provider.
@@ -79,6 +84,7 @@ class LayoutProcessor implements LayoutProcessorInterface
      * @param \Smile\StoreLocator\Helper\Schedule                            $scheduleHelper            Schedule Helper
      * @param \Smile\StoreLocator\Model\Retailer\ScheduleManagement          $scheduleManagement        Schedule Management
      * @param CarrierFactoryInterface                                        $carrierFactory            Carrier Factory
+     * @param \Magento\Framework\UrlInterface                                $urlBuilder                URL Builder
      */
     public function __construct(
         \Smile\Map\Api\MapProviderInterface $mapProvider,
@@ -87,7 +93,8 @@ class LayoutProcessor implements LayoutProcessorInterface
         \Smile\Map\Model\AddressFormatter $addressFormatter,
         \Smile\StoreLocator\Helper\Schedule $scheduleHelper,
         \Smile\StoreLocator\Model\Retailer\ScheduleManagement $scheduleManagement,
-        CarrierFactoryInterface $carrierFactory
+        CarrierFactoryInterface $carrierFactory,
+        \Magento\Framework\UrlInterface $urlBuilder
     ) {
         $this->map                       = $mapProvider->getMap();
         $this->retailerCollectionFactory = $retailerCollectionFactory;
@@ -96,6 +103,7 @@ class LayoutProcessor implements LayoutProcessorInterface
         $this->scheduleHelper            = $scheduleHelper;
         $this->scheduleManager           = $scheduleManagement;
         $this->carrierFactory            = $carrierFactory;
+        $this->urlBuilder                = $urlBuilder;
     }
 
     /**
@@ -164,7 +172,7 @@ class LayoutProcessor implements LayoutProcessorInterface
                 'address'      => $this->addressFormatter->formatAddress($address, AddressFormatter::FORMAT_ONELINE),
                 'url'          => $this->storeLocatorHelper->getRetailerUrl($retailer),
                 'directionUrl' => $this->map->getDirectionUrl($address->getCoordinates()),
-                'setStoreData' => '', // $this->getSetStorePostData($retailer),
+                'setStoreData' => $this->getSetStorePostData($retailer),
                 'addressData'  => $address->getData(),
             ];
 
@@ -195,5 +203,20 @@ class LayoutProcessor implements LayoutProcessorInterface
         $retailerCollection->addOrder('name', 'asc');
 
         return $retailerCollection;
+    }
+
+    /**
+     * Get the JSON post data used to build the set store link.
+     *
+     * @param \Smile\Retailer\Api\Data\RetailerInterface $retailer The store
+     *
+     * @return string
+     */
+    private function getSetStorePostData($retailer)
+    {
+        $setUrl   = $this->urlBuilder->getUrl('storelocator/store/set');
+        $postData = ['id' => $retailer->getId()];
+
+        return ['action' => $setUrl, 'data' => $postData];
     }
 }
