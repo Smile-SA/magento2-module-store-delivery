@@ -195,11 +195,11 @@ body.checkout-index-index {
             }
 
             .shop-details {
+                max-width: 50vh;
+                width: auto;
 
                 .search-result-list {
-                    ul {
-                        max-height: 180px;
-                    }
+                    display: none;
                 }
 
                 .header {
@@ -212,9 +212,6 @@ body.checkout-index-index {
                         float: right;
                     }
                 }
-
-                width: auto;
-                max-width: 480px;
 
                 .shop-details-wrapper {
                     padding: 10px;
@@ -244,10 +241,32 @@ body.checkout-index-index {
 
                 .actions-toolbar {
                     .actions {
-                        margin: 5px;
-                        border-top: 1px solid #cccccc;
-                        padding-top: 10px;
+                        margin:0px;
                         display: flex;
+                        flex-flow: row wrap;
+                        div.primary {
+                            flex: 1;
+                            text-align: center;
+                            margin: 2px;
+                            a {
+                                width: 100%;
+                            }
+
+                            .action {
+                                margin: 0;
+                            }
+                        }
+                        .action {
+                            padding: 5px 10px;
+                        }
+
+                        .right {
+                            display: flex;
+
+                            .primary {
+                                margin: 2px 0 0 2px;
+                            }
+                        }
                     }
                 }
 
@@ -271,6 +290,13 @@ body.checkout-index-index {
                 }
             }
         }
+    }
+
+    .action.secondary {
+        background: #eeeeee;
+        border: 1px solid #cccccc;
+        color: #333333;
+        font-weight: 500;
     }
 }
 
@@ -296,6 +322,25 @@ body.checkout-index-index {
                     .search-result-list {
                         ul {
                             max-height: 160px;
+                        }
+                    }
+                }
+
+                .shop-details {
+                    .actions-toolbar {
+                        .actions {
+                            div.primary {
+                                flex: 0 0 100%;
+                            }
+
+                            .right {
+                                flex: 0 0 100%;
+                                margin-left: 0;
+                                .primary {
+                                    flex: 1;
+                                    margin: 2px 0 0 2px;
+                                }
+                            }
                         }
                     }
                 }
