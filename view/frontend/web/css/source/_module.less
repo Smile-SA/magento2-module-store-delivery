@@ -273,3 +273,43 @@ body.checkout-index-index {
         }
     }
 }
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    aside.modal-popup.modal-slide.smile-storepickup-checkout-modal {
+        left: 10px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        .modal-content {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .smile-store-pickup {
+            .contextual-bar {
+                height: auto;
+                width: 100%;
+                .shop-search {
+                    width: 100%;
+                    .search-result-list {
+                        ul {
+                            max-height: 160px;
+                        }
+                    }
+                }
+            }
+
+            .map {
+                height: 300px;
+                border-left-width: 1px;
+                width: 100%;
+                float:left;
+                clear:both;
+                margin-top: 5px;
+            }
+        }
+    }
+}
+

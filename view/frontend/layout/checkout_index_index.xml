@@ -45,6 +45,7 @@
                                                                                 <item name="type" xsi:type="string">popup</item>
                                                                                 <item name="responsive" xsi:type="boolean">true</item>
                                                                                 <item name="innerScroll" xsi:type="boolean">true</item>
+                                                                                <item name="modalClass" xsi:type="string">smile-storepickup-checkout-modal</item>
                                                                                 <item name="title" xsi:type="string" translate="true">Store Pickup Addresses</item>
                                                                                 <item name="trigger" xsi:type="string">opc-new-store-pickup-address</item>
                                                                                 <item name="buttons" xsi:type="array">
