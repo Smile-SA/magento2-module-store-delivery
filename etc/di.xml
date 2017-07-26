@@ -28,4 +28,9 @@
     <type name="Magento\Quote\Api\ShippingMethodManagementInterface">
         <plugin name="store_pickup_estimate_rates_by_address" type="Smile\StorePickup\Plugin\Quote\Api\ShippingMethodManagementPlugin"/>
     </type>
+
+
+    <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="gift_registry_quote_address_to_order_address" type="Smile\StorePickup\Plugin\Quote\Model\ConvertQuoteAddressToOrderAddress"/>
+    </type>
 </config>

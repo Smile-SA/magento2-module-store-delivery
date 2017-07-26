@@ -74,12 +74,12 @@ class SaveAddressPlugin
         if ($shippingAddress->getExtensionAttributes() && $shippingAddress->getExtensionAttributes()->getRetailerId()) {
             $retailer = $this->retailerRepository->get($shippingAddress->getExtensionAttributes()->getRetailerId());
             if ($retailer->getId()) {
-                $shippingAddress->setCustomerAddressId($this->customerSession->getCustomerId());
                 $address = $this->addressDataFactory->create(
                     ['data' => $retailer->getAddress()->getData()]
                 );
                 $shippingAddress->importCustomerAddressData($address);
                 $shippingAddress->setCompany($retailer->getName());
+                $shippingAddress->setRetailerId((int) $retailer->getId());
 
                 // Potentially copy billing fields (if present, this is not the case when customer is not logged in).
                 if (!$shippingAddress->getFirstname()) {
