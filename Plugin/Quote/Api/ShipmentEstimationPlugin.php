@@ -46,10 +46,11 @@ class ShipmentEstimationPlugin
         // If shipping address is linked to a retailer, remove all methods except Store Pickup.
         /** @var \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethod */
         foreach ($shippingMethods as $key => $shippingMethod) {
-            if (($address->getExtensionAttributes()->getRetailerId()
-                && ($shippingMethod->getMethodCode() !== \Smile\StorePickup\Model\Carrier::METHOD_CODE)) ||
-                (null === $address->getExtensionAttributes()->getRetailerId()
-                && ($shippingMethod->getMethodCode() === \Smile\StorePickup\Model\Carrier::METHOD_CODE))) {
+            if (($address->getExtensionAttributes() && $address->getExtensionAttributes()->getRetailerId()
+                    && ($shippingMethod->getMethodCode() !== \Smile\StorePickup\Model\Carrier::METHOD_CODE)) ||
+                ((!$address->getExtensionAttributes() || (null === $address->getExtensionAttributes()->getRetailerId()))
+                    && ($shippingMethod->getMethodCode() === \Smile\StorePickup\Model\Carrier::METHOD_CODE))
+            ) {
                 unset($shippingMethods[$key]);
             }
         }
