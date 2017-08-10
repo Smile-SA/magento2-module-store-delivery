@@ -56,8 +56,12 @@ define([
          * Set selected customer shipping address
          **/
         selectAddress: function() {
-            selectShippingAddressAction(this.address());
-            checkoutData.setSelectedShippingAddress(this.address().getKey());
+            if (this.hasAddress()) {
+                selectShippingAddressAction(this.address());
+                checkoutData.setSelectedShippingAddress(this.address().getKey());
+            } else {
+                this.showPopup();
+            }
         },
 
         /**
