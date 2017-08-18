@@ -169,6 +169,12 @@ class LayoutProcessor implements LayoutProcessorInterface
         $collection = $this->getRetailerCollection();
         $cacheKey   = sprintf("%s_%s", 'checkout_storepickup', $collection->getStoreId());
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/rorua.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($collection->getNewEmptyItem()->getCacheTags(), true));
+
+
         $markers = $this->cache->load($cacheKey);
         if (!$markers) {
             $markers = [];
@@ -204,8 +210,7 @@ class LayoutProcessor implements LayoutProcessorInterface
             $this->cache->save(
                 $markers,
                 $cacheKey,
-                $retailer->getCacheTags(),
-                7200
+                $collection->getNewEmptyItem()->getCacheTags()
             );
         }
 
@@ -220,7 +225,10 @@ class LayoutProcessor implements LayoutProcessorInterface
     private function getRetailerCollection()
     {
         $retailerCollection = $this->retailerCollectionFactory->create();
-        $retailerCollection->addAttributeToSelect('*');
+        $retailerCollection->addAttributeToSelect(
+            ['name', 'seller_code', 'contact_phone', 'contact_fax', 'contact_mail']
+        );
+        $retailerCollection->addFieldToFilter('allow_store_delivery', 1);
         $retailerCollection->addOrder('name', 'asc');
 
         return $retailerCollection;
