@@ -21,9 +21,9 @@
                 <active>1</active>
                 <sallowspecific>0</sallowspecific>
                 <model>Smile\StorePickup\Model\Carrier</model>
-                <name>Store Pickup</name>
+                <name>Store Delivery</name>
                 <price>0.00</price>
-                <title>StorePickup</title>
+                <title>StoreDelivery</title>
                 <type>I</type>
                 <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
                 </specificerrmsg>
