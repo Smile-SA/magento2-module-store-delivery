@@ -17,6 +17,10 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Quote\Setup\QuoteSetupFactory;
 use Magento\Sales\Setup\SalesSetupFactory;
+use Magento\Eav\Setup\EavSetup;
+use Magento\Eav\Setup\EavSetupFactory;
+use Smile\Retailer\Api\Data\RetailerInterface;
+use Smile\Seller\Api\Data\SellerInterface;
 
 /**
  * Smile StorePickup Install Data.
@@ -38,17 +42,25 @@ class InstallData implements InstallDataInterface
     private $quoteSetupFactory;
 
     /**
+     * @var \Magento\Eav\Setup\EavSetupFactory
+     */
+    private $eavSetupFactory;
+
+    /**
      * InstallData constructor.
      *
      * @param \Magento\Sales\Setup\SalesSetupFactory $salesSetupFactory Sales Setup
      * @param \Magento\Quote\Setup\QuoteSetupFactory $quoteSetupFactory Quote Setup
+     * @param \Magento\Eav\Setup\EavSetupFactory     $eavSetupFactory   EAV Setup Factory.
      */
     public function __construct(
         SalesSetupFactory $salesSetupFactory,
-        QuoteSetupFactory $quoteSetupFactory
+        QuoteSetupFactory $quoteSetupFactory,
+        EavSetupFactory $eavSetupFactory
     ) {
         $this->salesSetupFactory = $salesSetupFactory;
         $this->quoteSetupFactory = $quoteSetupFactory;
+        $this->eavSetupFactory   = $eavSetupFactory;
     }
 
 
@@ -59,7 +71,11 @@ class InstallData implements InstallDataInterface
     {
         $setup->startSetup();
 
-        $this->addAttributes($setup);
+        $this->addSalesAttributes($setup);
+
+        /** @var EavSetup $eavSetup */
+        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+        $this->addShopAttributes($eavSetup);
 
         $setup->endSetup();
     }
@@ -69,7 +85,7 @@ class InstallData implements InstallDataInterface
      *
      * @param ModuleDataSetupInterface $setup Data Setup
      */
-    private function addAttributes($setup)
+    private function addSalesAttributes($setup)
     {
         /** @var \Magento\Sales\Setup\SalesSetup $salesSetup */
         $salesSetup = $this->salesSetupFactory->create(['resourceName' => 'sales_setup', 'setup' => $setup]);
@@ -88,5 +104,36 @@ class InstallData implements InstallDataInterface
             'retailer_id',
             ['type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER, 'visible' => false]
         );
+    }
+
+    /**
+     * Add allow_store_delivery attribute to Retailer
+     *
+     * @param \Magento\Eav\Setup\EavSetup $eavSetup EAV module Setup
+     */
+    private function addShopAttributes($eavSetup)
+    {
+        $entityId  = SellerInterface::ENTITY;
+        $attrSetId = RetailerInterface::ATTRIBUTE_SET_RETAILER;
+        $groupId   = 'Shipping';
+
+        $eavSetup->addAttributeGroup($entityId, $attrSetId, $groupId, 200);
+
+        $eavSetup->addAttribute(
+            SellerInterface::ENTITY,
+            'allow_store_delivery',
+            [
+                'type'         => 'int',
+                'label'        => 'Allow Store Delivery',
+                'input'        => 'boolean',
+                'required'     => true,
+                'user_defined' => true,
+                'sort_order'   => 10,
+                'global'       => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                'source'       => 'Magento\Eav\Model\Entity\Attribute\Source\Boolean',
+            ]
+        );
+
+        $eavSetup->addAttributeToGroup($entityId, $attrSetId, $groupId, 'allow_store_delivery', 10);
     }
 }
