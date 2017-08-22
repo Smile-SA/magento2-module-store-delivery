@@ -1,0 +1,31 @@
+<div class="header">
+    <div class="store-name"><h2 data-bind="text: name"></h2></div>
+    <div class="actions">
+
+    </div>
+</div>
+
+<div style="clear: both"></div>
+
+<div class="actions-toolbar">
+    <div class="address-info">
+        <div class="box-title">
+            <p data-bind="i18n: 'Store Address'"></p>
+        </div>
+        <div class="address">
+            <em data-bind="html: address"></em>
+        </div>
+    </div>
+    <div class="opening-hours-info">
+        <div data-bind="{template: { name: schedule().openingHoursTemplate, data: schedule() }}"></div>
+    </div>
+    <div class="opening-hours-info">
+        <div data-bind="{template: { name: schedule().specialOpeningHoursTemplate, data: schedule() }}"></div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="actions">
+        <div class="primary">
+            <a target="_blank" class="action primary secondary" data-bind="{i18n: 'Directions', attr: { href: directionUrl }}"></a>
+        </div>
+    </div>
+</div>

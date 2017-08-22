@@ -85,6 +85,7 @@ define([
                 if (parseInt(marker.id, 10) === parseInt(this.currentRetailerId(), 10)) {
                     retailerData = marker.addressData;
                     retailerData.name = marker.name;
+                    this.selectMarker(marker);
                 }
             }.bind(this));
 
