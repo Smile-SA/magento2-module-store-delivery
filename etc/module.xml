@@ -7,14 +7,14 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Smile_StorePickup" setup_version="1.2.0">
+    <module name="Smile_StoreDelivery" setup_version="1.2.0">
         <sequence>
             <module name="Magento_Checkout"/>
             <module name="Smile_StoreLocator"/>

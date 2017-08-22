@@ -1,14 +1,14 @@
 <div class="heading" style="display: flex">
-    <input type="radio" name="smile_storepickup_storeid" data-bind="{
+    <input type="radio" name="Smile_StoreDelivery_storeid" data-bind="{
         attr: {
-           'name': 'store_pickup_retailerId',
+           'name': 'store_delivery_retailerId',
            'value' : id,
-           'id': 'store_pickup_' + id,
+           'id': 'store_delivery_' + id,
            'title': $t('Choose this store')
         },
         checked: $parents[1].currentRetailerId
     }"/>
-    <label data-bind="{ attr: { 'for' : 'store_pickup_' + id} }">
+    <label data-bind="{ attr: { 'for' : 'store_delivery_' + id} }">
         <p class="name-label" style="flex: 1"><strong data-bind="text: name"></strong></p>
     </label>
 </div>

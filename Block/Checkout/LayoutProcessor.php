@@ -5,12 +5,12 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Block\Checkout;
+namespace Smile\StoreDelivery\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 use Magento\Shipping\Model\CarrierFactoryInterface;
@@ -20,11 +20,11 @@ use Smile\Retailer\Api\Data\RetailerInterface;
 use Smile\Retailer\Model\ResourceModel\Retailer\CollectionFactory;
 
 /**
- * Specific JS Layout processor for StorePickup.
+ * Specific JS Layout processor for StoreDelivery.
  * Inject Map, Geolocation and Stores into checkout UI Components.
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class LayoutProcessor implements LayoutProcessorInterface
@@ -32,7 +32,7 @@ class LayoutProcessor implements LayoutProcessorInterface
     /**
      * @var string
      */
-    private $methodCode = \Smile\StorePickup\Model\Carrier::METHOD_CODE;
+    private $methodCode = \Smile\StoreDelivery\Model\Carrier::METHOD_CODE;
 
     /**
      * @var MapInterface
@@ -121,28 +121,28 @@ class LayoutProcessor implements LayoutProcessorInterface
     {
         if ($this->carrierFactory->getIfActive($this->methodCode)) {
             // @codingStandardsIgnoreStart
-            $storePickup = $jsLayout['components']['checkout']['children']['steps']['children']
+            $storeDelivery = $jsLayout['components']['checkout']['children']['steps']['children']
             ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
-            ['children']['store-pickup'];
+            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+            ['children']['store-delivery'];
             // @codingStandardsIgnoreEnd
 
-            $storePickup['provider'] = $this->map->getIdentifier();
-            $storePickup['markers']  = $this->getStores();
-            $storePickup             = array_merge($storePickup, $this->map->getConfig());
+            $storeDelivery['provider'] = $this->map->getIdentifier();
+            $storeDelivery['markers']  = $this->getStores();
+            $storeDelivery             = array_merge($storeDelivery, $this->map->getConfig());
 
             // @codingStandardsIgnoreStart
             $jsLayout['components']['checkout']['children']['steps']['children']
             ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
-            ['children']['store-pickup'] = $storePickup;
+            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+            ['children']['store-delivery'] = $storeDelivery;
             // @codingStandardsIgnoreEnd
 
             // @codingStandardsIgnoreStart
             $geocoder = $jsLayout['components']['checkout']['children']['steps']['children']
             ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
-            ['children']['store-pickup']['children']['geocoder'];
+            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+            ['children']['store-delivery']['children']['geocoder'];
             // @codingStandardsIgnoreEnd
 
             $geocoder['provider'] = $this->map->getIdentifier();
@@ -151,8 +151,8 @@ class LayoutProcessor implements LayoutProcessorInterface
             // @codingStandardsIgnoreStart
             $jsLayout['components']['checkout']['children']['steps']['children']
             ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-pickup']['children']['smile-store-pickup']
-            ['children']['store-pickup']['children']['geocoder'] = $geocoder;
+            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+            ['children']['store-delivery']['children']['geocoder'] = $geocoder;
             // @codingStandardsIgnoreEnd
         }
 
@@ -167,13 +167,7 @@ class LayoutProcessor implements LayoutProcessorInterface
     private function getStores()
     {
         $collection = $this->getRetailerCollection();
-        $cacheKey   = sprintf("%s_%s", 'checkout_storepickup', $collection->getStoreId());
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/rorua.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($collection->getNewEmptyItem()->getCacheTags(), true));
-
+        $cacheKey   = sprintf("%s_%s", 'checkout_storedelivery', $collection->getStoreId());
 
         $markers = $this->cache->load($cacheKey);
         if (!$markers) {

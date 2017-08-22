@@ -1,7 +1,7 @@
 <div class="shipping-address-item" data-bind="css: isSelected() ? 'selected-item' : 'not-selected-item'">
     <strong><span data-bind="i18n: 'Deliver my order in store'"></span></strong>
     <!-- ko ifnot: hasAddress() -->
-        <!-- ko foreach: getRegion('smile-store-pickup-additional-messages') -->
+        <!-- ko foreach: getRegion('smile-store-delivery-additional-messages') -->
             <!-- ko template: getTemplate() --><!-- /ko -->
         <!-- /ko -->
     <!-- /ko -->
@@ -25,7 +25,7 @@
         <!-- /ko -->
     <!-- /ko -->
 
-    <button type="button" class="action action-select-store-pickup" data-bind="click: showPopup, visible: isSelected()">
+    <button type="button" class="action action-select-store-delivery" data-bind="click: showPopup, visible: isSelected()">
         <!-- ko ifnot: hasAddress() -->
             <span data-bind="i18n: 'Choose Store'"></span>
         <!-- /ko -->
@@ -36,8 +36,8 @@
     <button type="button" class="action action-select-shipping-item" data-bind="click: selectAddress, visible: !isSelected()">
         <span data-bind="i18n: 'Ship Here'"></span>
     </button>
-    <div id="opc-new-store-pickup-address" data-bind="visible: isFormPopUpVisible()">
-        <!-- ko foreach: getRegion('smile-store-pickup') -->
+    <div id="opc-new-store-delivery-address" data-bind="visible: isFormPopUpVisible()">
+        <!-- ko foreach: getRegion('smile-store-delivery') -->
             <!-- ko template: getTemplate() --><!-- /ko -->
         <!-- /ko -->
     </div>

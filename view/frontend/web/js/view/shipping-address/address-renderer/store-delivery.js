@@ -21,7 +21,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Smile_StorePickup/shipping-address/address-renderer/store-pickup'
+            template: 'Smile_StoreDelivery/shipping-address/address-renderer/store-delivery'
         },
         isFormPopUpVisible: ko.observable(false),
 
@@ -33,7 +33,7 @@ define([
             this.isFormPopUpVisible.subscribe(function (value) {
                 if (value) {
                     self.getPopUp().openModal();
-                    self.requestChild('smile-store-pickup')().renderComponent();
+                    self.requestChild('smile-store-delivery')().renderComponent();
                 }
             });
         },

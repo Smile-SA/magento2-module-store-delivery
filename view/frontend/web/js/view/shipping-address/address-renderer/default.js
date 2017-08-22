@@ -6,7 +6,7 @@
  *
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
@@ -30,7 +30,7 @@ define([
 
     return defaultRenderer.extend({
         defaults: {
-            template: 'Smile_StorePickup/shipping-address/address-renderer/default'
+            template: 'Smile_StoreDelivery/shipping-address/address-renderer/default'
         },
 
         /**

@@ -5,27 +5,27 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Plugin\Quote\Api;
+namespace Smile\StoreDelivery\Plugin\Quote\Api;
 
 use Magento\Quote\Api\ShippingMethodManagementInterface;
-use Smile\StorePickup\Model\Carrier;
+use Smile\StoreDelivery\Model\Carrier;
 
 /**
- * Plugin to remove Store Pickup from available carriers for estimation by addressId.
+ * Plugin to remove Store Delivery from available carriers for estimation by addressId.
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class ShippingMethodManagementPlugin
 {
     /**
-     * Remove StorePickup from available methods when estimating by address Id (existing customer addresses).
+     * Remove StoreDelivery from available methods when estimating by address Id (existing customer addresses).
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param \Magento\Quote\Api\ShippingMethodManagementInterface $subject   Shipping Method Management

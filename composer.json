@@ -1,8 +1,8 @@
 {
-    "name": "smile/module-store-pickup",
+    "name": "smile/module-store-delivery",
     "type": "magento2-module",
-    "description": "Smile Store Pickup",
-    "keywords": ["magento2", "store pickup", "click in store", "pickup in store"],
+    "description": "Smile Store Delivery",
+    "keywords": ["magento2", "store delivery", "click in store", "delivery in store"],
     "repositories": [
         {
             "type": "composer",
@@ -31,7 +31,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Smile\\StorePickup\\" : ""
+            "Smile\\StoreDelivery\\" : ""
         }
     },
     "minimum-stability": "dev",

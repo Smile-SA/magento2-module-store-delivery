@@ -5,10 +5,10 @@ Details,Détails
 "Ship Here","Livrer ici"
 "Your order will be delivered to the chosen store.","Votre commande sera livrée au magasin que vous avez sélectionné."
 "You will receive an email when the order will be available for pickup.","Vous recevrez un email lorsque votre commande sera disponible."
-"Pickup in Store","Retirer en magasin"
+"Deliver in Store","Retirer en magasin"
 "Save Address","Sauvegarder l'adresse"
 Cancel,Annuler
-"Store Pickup","Store Pickup"
+"Store Delivery","Livraison en magasin"
 Enabled,Activé
 "Method Name","Nom de la méthode"
 Price,Prix
@@ -20,7 +20,7 @@ Title,Titre
 "Ship to Specific Countries","Livraison dans des pays spécifiques"
 "Show Method if Not Applicable","Afficher la méthode de livraison même si elle n'est pas disponible"
 "Displayed Error Message","Message d'erreur affiché"
-"Store Pickup Addresses","Magasins disponibles"
+"Store Delivery Addresses","Magasins disponibles"
 "Select Store Address","Choisir un magasin"
 "Find a store :","Trouver un magasin :"
 "City, Zipcode, Department, ...","Ville, code postal, département..."

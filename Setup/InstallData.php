@@ -5,12 +5,12 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Setup;
+namespace Smile\StoreDelivery\Setup;
 
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -23,10 +23,10 @@ use Smile\Retailer\Api\Data\RetailerInterface;
 use Smile\Seller\Api\Data\SellerInterface;
 
 /**
- * Smile StorePickup Install Data.
+ * Smile StoreDelivery Install Data.
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class InstallData implements InstallDataInterface

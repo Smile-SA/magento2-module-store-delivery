@@ -5,23 +5,23 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Setup;
+namespace Smile\StoreDelivery\Setup;
 
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 
 /**
- * Smile StorePickup Install Schema.
+ * Smile StoreDelivery Install Schema.
  * Mandatory for Magento <2.2 to backport a fix on shipping_method field.
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class InstallSchema implements InstallSchemaInterface

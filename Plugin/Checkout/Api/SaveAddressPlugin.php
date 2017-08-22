@@ -5,12 +5,12 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Plugin\Checkout\Api;
+namespace Smile\StoreDelivery\Plugin\Checkout\Api;
 
 use Smile\Retailer\Api\RetailerRepositoryInterface;
 
@@ -18,7 +18,7 @@ use Smile\Retailer\Api\RetailerRepositoryInterface;
  * Plugin to save a Store address as Shipping Address
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class SaveAddressPlugin

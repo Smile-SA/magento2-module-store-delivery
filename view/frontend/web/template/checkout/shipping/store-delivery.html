@@ -1,4 +1,4 @@
-<div class="smile-store-pickup" id="smile-store-pickup-container" style="display:none" data-bind="{ visible: isVisible(), afterRender: initComponent }">
+<div class="smile-store-delivery" id="smile-store-delivery-container" style="display:none" data-bind="{ visible: isVisible(), afterRender: initComponent }">
     <!-- ko if: isActive() -->
         <input type="hidden"
                data-bind="attr: {
@@ -7,7 +7,7 @@
                }" />
 
             <!-- ko if: isVisible() -->
-                <!-- ko foreach: getRegion('store-pickup') -->
+                <!-- ko foreach: getRegion('store-delivery') -->
                     <!-- ko template: getTemplate() --><!-- /ko -->
                 <!-- /ko -->
             <!-- /ko -->

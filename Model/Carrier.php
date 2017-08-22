@@ -5,12 +5,12 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Model;
+namespace Smile\StoreDelivery\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
@@ -23,11 +23,11 @@ use Magento\Quote\Model\Quote\Address\RateRequest;
 use Psr\Log\LoggerInterface;
 
 /**
- * Store Pickup Carrier model
+ * Store Delivery Carrier model
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class Carrier extends AbstractCarrier implements CarrierInterface
@@ -35,7 +35,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     /**
      * Constant for method code
      */
-    const METHOD_CODE = 'smile_store_pickup';
+    const METHOD_CODE = 'smile_store_delivery';
 
     /**
      * @var string

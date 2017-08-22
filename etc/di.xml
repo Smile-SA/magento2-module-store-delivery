@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Smile_StorePickup dependency injection configuration.
+ * Smile_StoreDelivery dependency injection configuration.
  *
  * DISCLAIMER
  *
@@ -9,7 +9,7 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
@@ -18,19 +18,19 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <type name="Magento\Checkout\Api\ShippingInformationManagementInterface">
-        <plugin name="store_pickup_save_address" type="Smile\StorePickup\Plugin\Checkout\Api\SaveAddressPlugin"/>
+        <plugin name="store_delivery_save_address" type="Smile\StoreDelivery\Plugin\Checkout\Api\SaveAddressPlugin"/>
     </type>
 
     <type name="Magento\Quote\Api\ShipmentEstimationInterface">
-        <plugin name="store_pickup_estimate_rates" type="Smile\StorePickup\Plugin\Quote\Api\ShipmentEstimationPlugin"/>
+        <plugin name="store_delivery_estimate_rates" type="Smile\StoreDelivery\Plugin\Quote\Api\ShipmentEstimationPlugin"/>
     </type>
 
     <type name="Magento\Quote\Api\ShippingMethodManagementInterface">
-        <plugin name="store_pickup_estimate_rates_by_address" type="Smile\StorePickup\Plugin\Quote\Api\ShippingMethodManagementPlugin"/>
+        <plugin name="store_delivery_estimate_rates_by_address" type="Smile\StoreDelivery\Plugin\Quote\Api\ShippingMethodManagementPlugin"/>
     </type>
 
 
     <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
-        <plugin name="gift_registry_quote_address_to_order_address" type="Smile\StorePickup\Plugin\Quote\Model\ConvertQuoteAddressToOrderAddress"/>
+        <plugin name="gift_registry_quote_address_to_order_address" type="Smile\StoreDelivery\Plugin\Quote\Model\ConvertQuoteAddressToOrderAddress"/>
     </type>
 </config>

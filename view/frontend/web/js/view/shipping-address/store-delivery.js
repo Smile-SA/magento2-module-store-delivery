@@ -6,7 +6,7 @@
  *
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2016 Smile
  * @license   Open Software License ("OSL") v. 3.0
@@ -19,52 +19,52 @@ define(
     [
         'uiComponent',
         'Magento_Customer/js/customer-data',
-        'Smile_StorePickup/js/model/empty-address',
-        'Smile_StorePickup/js/model/store-address',
+        'Smile_StoreDelivery/js/model/empty-address',
+        'Smile_StoreDelivery/js/model/store-address',
         'Magento_Customer/js/model/address-list',
         'Magento_Checkout/js/model/shipping-rate-service',
-        'Smile_StorePickup/js/model/shipping-rate-processor/store-pickup',
+        'Smile_StoreDelivery/js/model/shipping-rate-processor/store-delivery',
         'Magento_Checkout/js/model/shipping-save-processor',
-        'Smile_StorePickup/js/model/shipping-save-processor/store-pickup'
+        'Smile_StoreDelivery/js/model/shipping-save-processor/store-delivery'
     ],
     function (
         Component,
         customerData,
         customerAddress,
-        storePickupAddress,
+        storeDeliveryAddress,
         addressList,
         shippingRateService,
-        storePickupShippingRateProcessor,
+        storeDeliveryShippingRateProcessor,
         shippingSaveProcessor,
-        storePickupShippingSaveProcessor
+        storeDeliveryShippingSaveProcessor
     ) {
         'use strict';
 
-        // Register store pickup address provider.
+        // Register store delivery address provider.
         // Always add it, if the carrier is available.
         // This will by default add a new "empty" address allowing the customer to select a shop.
-        if (window.checkoutConfig.activeCarriers.indexOf('smile_store_pickup') !== -1) {
+        if (window.checkoutConfig.activeCarriers.indexOf('smile_store_delivery') !== -1) {
             if (addressList().length === 0) {
                 addressList.push(new customerAddress([]));
             }
 
-            var address = new storePickupAddress(null, {});
+            var address = new storeDeliveryAddress(null, {});
             var currentStore = customerData.get('current-store');
             if (currentStore() && currentStore().entity_id && currentStore().address_data) {
                 var addressData = currentStore().address_data;
                 if ((addressData.company === undefined) && currentStore().name) {
                     addressData.company = currentStore().name;
                 }
-                address = new storePickupAddress(currentStore().entity_id, addressData);
+                address = new storeDeliveryAddress(currentStore().entity_id, addressData);
             }
             addressList.push(address);
         }
 
         // Register rate processor
-        shippingRateService.registerProcessor('store-pickup', storePickupShippingRateProcessor);
+        shippingRateService.registerProcessor('store-delivery', storeDeliveryShippingRateProcessor);
 
-        //Register StorePickup save shipping address processor.
-        shippingSaveProcessor.registerProcessor('store-pickup', storePickupShippingSaveProcessor);
+        //Register StoreDelivery save shipping address processor.
+        shippingSaveProcessor.registerProcessor('store-delivery', storeDeliveryShippingSaveProcessor);
 
         return Component.extend({});
     }

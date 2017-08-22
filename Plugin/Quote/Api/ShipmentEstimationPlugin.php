@@ -5,27 +5,27 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Plugin\Quote\Api;
+namespace Smile\StoreDelivery\Plugin\Quote\Api;
 
 use Magento\Quote\Api\ShipmentEstimationInterface;
 
 /**
  * Shipment Estimation Plugin.
- * Allow only Store Pickup
+ * Allow only Store Delivery
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class ShipmentEstimationPlugin
 {
     /**
-     * Ensure StorePickup is the only available shipping method for store pickup addresses.
+     * Ensure StoreDelivery is the only available shipping method for store delivery addresses.
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param \Magento\Quote\Api\ShipmentEstimationInterface $subject Shipment Estimation Interface
@@ -43,13 +43,13 @@ class ShipmentEstimationPlugin
     ) {
         $shippingMethods = $proceed($cartId, $address);
 
-        // If shipping address is linked to a retailer, remove all methods except Store Pickup.
+        // If shipping address is linked to a retailer, remove all methods except Store Delivery.
         /** @var \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethod */
         foreach ($shippingMethods as $key => $shippingMethod) {
             if (($address->getExtensionAttributes() && $address->getExtensionAttributes()->getRetailerId()
-                    && ($shippingMethod->getMethodCode() !== \Smile\StorePickup\Model\Carrier::METHOD_CODE)) ||
+                    && ($shippingMethod->getMethodCode() !== \Smile\StoreDelivery\Model\Carrier::METHOD_CODE)) ||
                 ((!$address->getExtensionAttributes() || (null === $address->getExtensionAttributes()->getRetailerId()))
-                    && ($shippingMethod->getMethodCode() === \Smile\StorePickup\Model\Carrier::METHOD_CODE))
+                    && ($shippingMethod->getMethodCode() === \Smile\StoreDelivery\Model\Carrier::METHOD_CODE))
             ) {
                 unset($shippingMethods[$key]);
             }

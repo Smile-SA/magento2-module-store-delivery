@@ -7,7 +7,7 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
@@ -19,7 +19,7 @@
     <type name="Magento\Checkout\Block\Onepage">
         <arguments>
             <argument name="layoutProcessors" xsi:type="array">
-                <item name="storePickupProcessor" xsi:type="object">Smile\StorePickup\Block\Checkout\LayoutProcessor</item>
+                <item name="storeDeliveryProcessor" xsi:type="object">Smile\StoreDelivery\Block\Checkout\LayoutProcessor</item>
             </argument>
         </arguments>
     </type>

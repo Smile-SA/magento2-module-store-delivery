@@ -4,10 +4,10 @@ define([
     'Magento_Checkout/js/model/quote',
     'Magento_Customer/js/model/address-list',
     'Magento_Checkout/js/view/shipping',
-    'Smile_StorePickup/js/model/store-address',
+    'Smile_StoreDelivery/js/model/store-address',
     'smile-map-markers',
     'smile-storelocator-store-collection'
-], function(ko, StoreLocatorMap, quote, addressList, shipping, storePickupAddress){
+], function(ko, StoreLocatorMap, quote, addressList, shipping, storeDeliveryAddress){
 
     return StoreLocatorMap.extend({
 
@@ -89,7 +89,7 @@ define([
                 }
             }.bind(this));
 
-            var address = new storePickupAddress(this.currentRetailerId(), retailerData);
+            var address = new storeDeliveryAddress(this.currentRetailerId(), retailerData);
 
             quote.shippingAddress(address);
         }

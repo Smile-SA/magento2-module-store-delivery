@@ -7,7 +7,7 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
@@ -15,6 +15,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="checkout_submit_before">
-        <observer name="smile_store_pickup" instance="Smile\StorePickup\Observer\QuoteSubmit" shared="false" />
+        <observer name="smile_store_delivery" instance="Smile\StoreDelivery\Observer\QuoteSubmit" shared="false" />
     </event>
 </config>

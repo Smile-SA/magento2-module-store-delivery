@@ -5,12 +5,12 @@
  * versions in the future.
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2017 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
-namespace Smile\StorePickup\Plugin\Quote\Model;
+namespace Smile\StoreDelivery\Plugin\Quote\Model;
 
 /**
  * Plugin to copy "retailer_id" field from quote_address to order_address.
@@ -19,7 +19,7 @@ namespace Smile\StorePickup\Plugin\Quote\Model;
  * see https://github.com/magento/magento2/issues/5823
  *
  * @category Smile
- * @package  Smile\StorePickup
+ * @package  Smile\StoreDelivery
  * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class ConvertQuoteAddressToOrderAddress

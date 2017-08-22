@@ -6,7 +6,7 @@
  *
  *
  * @category  Smile
- * @package   Smile\StorePickup
+ * @package   Smile\StoreDelivery
  * @author    Romain Ruaud <romain.ruaud@smile.fr>
  * @copyright 2016 Smile
  * @license   Open Software License ("OSL") v. 3.0
@@ -29,9 +29,9 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Smile_StorePickup/checkout/shipping/store-pickup',
-            methodCode: 'smile_store_pickup',
-            carrierCode: 'smile_store_pickup',
+            template: 'Smile_StoreDelivery/checkout/shipping/store-delivery',
+            methodCode: 'smile_store_delivery',
+            carrierCode: 'smile_store_delivery',
             retailerId : retailer().entity_id || 0,
             init: true
         },
@@ -41,7 +41,7 @@ define([
 
             quote.shippingAddress.subscribe(function () {
                 var type = quote.shippingAddress().getType();
-                if (type === 'store-pickup') {
+                if (type === 'store-delivery') {
                     selectShippingMethodAction({
                         carrier_code: this.getCarrierCode(),
                         method_code: this.getMethodCode()
@@ -84,7 +84,7 @@ define([
         },
 
         renderComponent: function() {
-            this.requestChild('store-pickup')().canRenderMap(true);
+            this.requestChild('store-delivery')().canRenderMap(true);
         }
 
     });
