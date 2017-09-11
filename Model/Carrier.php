@@ -113,8 +113,10 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         $amount = $this->getConfigData('price');
 
-        $method->setPrice($amount);
-        $method->setCost($amount);
+        $price = $this->getFinalPriceWithHandlingFee($amount);
+
+        $method->setPrice($price);
+        $method->setCost($price);
 
         $result->append($method);
 
