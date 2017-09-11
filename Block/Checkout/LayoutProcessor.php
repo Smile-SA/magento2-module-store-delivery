@@ -223,6 +223,7 @@ class LayoutProcessor implements LayoutProcessorInterface
             ['name', 'seller_code', 'contact_phone', 'contact_fax', 'contact_mail']
         );
         $retailerCollection->addFieldToFilter('allow_store_delivery', 1);
+        $retailerCollection->addFieldToFilter('is_active', 1);
         $retailerCollection->addOrder('name', 'asc');
 
         return $retailerCollection;
