@@ -30,8 +30,8 @@ define([
     return Component.extend({
         defaults: {
             template: 'Smile_StoreDelivery/checkout/shipping/store-delivery',
-            methodCode: 'smile_store_delivery',
-            carrierCode: 'smile_store_delivery',
+            methodCode: 'smilestoredelivery',
+            carrierCode: 'smilestoredelivery',
             retailerId : retailer().entity_id || 0,
             init: true
         },

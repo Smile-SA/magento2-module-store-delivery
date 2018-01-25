@@ -35,7 +35,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     /**
      * Constant for method code
      */
-    const METHOD_CODE = 'smile_store_delivery';
+    const METHOD_CODE = 'smilestoredelivery';
 
     /**
      * @var string

@@ -43,7 +43,7 @@ define(
         // Register store delivery address provider.
         // Always add it, if the carrier is available.
         // This will by default add a new "empty" address allowing the customer to select a shop.
-        if (window.checkoutConfig.activeCarriers.indexOf('smile_store_delivery') !== -1) {
+        if (window.checkoutConfig.activeCarriers.indexOf('smilestoredelivery') !== -1) {
             if (addressList().length === 0) {
                 addressList.push(new customerAddress([]));
             }

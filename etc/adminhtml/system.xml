@@ -16,7 +16,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
-            <group id="smile_store_delivery" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="smilestoredelivery" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
 
                 <label>Store Delivery</label>
 

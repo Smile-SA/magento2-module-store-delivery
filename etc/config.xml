@@ -17,7 +17,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <carriers>
-            <smile_store_delivery>
+            <smilestoredelivery>
                 <active>1</active>
                 <sallowspecific>0</sallowspecific>
                 <model>Smile\StoreDelivery\Model\Carrier</model>
@@ -27,7 +27,7 @@
                 <type>I</type>
                 <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
                 </specificerrmsg>
-            </smile_store_delivery>
+            </smilestoredelivery>
         </carriers>
     </default>
 </config>
