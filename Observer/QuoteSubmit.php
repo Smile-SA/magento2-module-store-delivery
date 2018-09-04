@@ -61,7 +61,7 @@ class QuoteSubmit implements ObserverInterface
             if ($shippingMethod) {
                 $methodCode = \Smile\StoreDelivery\Model\Carrier::METHOD_CODE;
                 $carrier    = $this->carrierFactory->getIfActive($methodCode);
-                if ($shippingMethod === sprintf('%s_%s', $methodCode, $carrier->getCarrierCode())) {
+                if ($carrier && $shippingMethod === sprintf('%s_%s', $methodCode, $carrier->getCarrierCode())) {
                     $billingAddress = $quote->getBillingAddress();
 
                     if (!$shippingAddress->getFirstname()) {
