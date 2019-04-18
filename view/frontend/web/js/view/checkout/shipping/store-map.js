@@ -92,6 +92,39 @@ define([
             var address = new storeDeliveryAddress(this.currentRetailerId(), retailerData);
 
             quote.shippingAddress(address);
+        },
+
+        loadMarkers: function () {
+            var markers = [],
+                isMarkerCluster = this.marker_cluster === '1';
+            var icon = L.icon({iconUrl: this.markerIcon, iconSize: this.markerIconSize});
+            this.markers().forEach(function (markerData) {
+                var customIcon = icon;
+                if ('customIcon' in markerData && markerData.customIcon !== null &&
+                    markerData.customIcon !== undefined && markerData.customIcon !== ""
+                ) {
+                    customIcon = L.icon({iconUrl: markerData.customIcon, iconSize: this.markerIconSize});
+                }
+
+                var currentMarker = [markerData.latitude, markerData.longitude];
+                var marker = L.marker(currentMarker, {icon: customIcon});
+                if (!isMarkerCluster) {
+                    marker.addTo(this.map);
+                }
+                marker.on('click', function () {
+                    this.currentRetailerId(markerData.id);
+                    this.setShippingAddress();
+                }.bind(this));
+                markers.push(marker);
+            }.bind(this));
+
+            var group = new L.featureGroup(markers);
+            if (isMarkerCluster) {
+                group = new L.markerClusterGroup();
+                group.addLayers(markers);
+                this.map.addLayer(group);
+            }
+            this.initialBounds = group.getBounds();
         }
     });
 });
