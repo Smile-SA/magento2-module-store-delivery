@@ -96,16 +96,9 @@ define([
                 this.popUpForm.options.buttons = [
                     {
                         text: buttons.save.text ? buttons.save.text : $t('Save Address'),
-                        class: buttons.save.class ? buttons.save.class : 'action primary action-save-address',
+                        class: buttons.save.class ? buttons.save.class + ' disabled' : 'action primary action-save-address',
                         click: function () {
                             self.updateAddress();
-                            this.closeModal();
-                        }
-                    },
-                    {
-                        text: buttons.cancel.text ? buttons.cancel.text : $t('Cancel'),
-                        class: buttons.cancel.class ? buttons.cancel.class : 'action secondary action-hide-popup',
-                        click: function () {
                             this.closeModal();
                         }
                     }

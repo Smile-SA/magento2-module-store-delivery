@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'ko',
     'smile-storelocator-map',
     'Magento_Checkout/js/model/quote',
@@ -7,7 +8,7 @@ define([
     'Smile_StoreDelivery/js/model/store-address',
     'smile-map-markers',
     'smile-storelocator-store-collection'
-], function(ko, StoreLocatorMap, quote, addressList, shipping, storeDeliveryAddress){
+], function($, ko, StoreLocatorMap, quote, addressList, shipping, storeDeliveryAddress){
 
     return StoreLocatorMap.extend({
 
@@ -88,6 +89,8 @@ define([
                     this.selectMarker(marker);
                 }
             }.bind(this));
+            // Enable store selection button
+            $('button.action-save-address').removeClass('disabled');
 
             var address = new storeDeliveryAddress(this.currentRetailerId(), retailerData);
 
