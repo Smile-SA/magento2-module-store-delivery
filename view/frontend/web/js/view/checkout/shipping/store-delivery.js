@@ -68,7 +68,8 @@ define([
         },
 
         initComponent: function() {
-            setTimeout(this.init(false), 10000);
+            let self = this;
+            setTimeout(function() {self.init(false);}, 10000);
         },
 
         getCurrentStore: function() {
