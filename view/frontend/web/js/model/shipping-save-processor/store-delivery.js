@@ -23,7 +23,8 @@ define(
         'Magento_Checkout/js/model/payment-service',
         'Magento_Checkout/js/model/payment/method-converter',
         'Magento_Checkout/js/model/error-processor',
-        'Magento_Checkout/js/model/full-screen-loader'
+        'Magento_Checkout/js/model/full-screen-loader',
+        'Magento_Checkout/js/model/shipping-save-processor/payload-extender'
     ],
     function (
         ko,
@@ -33,7 +34,8 @@ define(
         paymentService,
         methodConverter,
         errorProcessor,
-        fullScreenLoader
+        fullScreenLoader,
+        payloadExtender
     ) {
         'use strict';
 
@@ -54,6 +56,8 @@ define(
                         shipping_carrier_code: quote.shippingMethod().carrier_code
                     }
                 };
+
+                payloadExtender(payload);
 
                 fullScreenLoader.startLoader();
 
