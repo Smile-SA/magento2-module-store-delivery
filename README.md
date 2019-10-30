@@ -8,7 +8,7 @@ This module add the ability to be delivered in store. Store delivery is a shippi
 
 The module requires :
 
-- [Store Locator](https://github.com/Smile-SA/magento2-module-store-locator) > 1.2.*
+- [Store Locator](https://github.com/Smile-SA/magento2-module-store-locator) > 2.0.*
 
 ### How to use
 
