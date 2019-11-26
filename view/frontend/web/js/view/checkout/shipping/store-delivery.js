@@ -43,8 +43,10 @@ define([
                 var type = quote.shippingAddress().getType();
                 if (type === 'store-delivery') {
                     selectShippingMethodAction({
-                        carrier_code: this.getCarrierCode(),
-                        method_code: this.getMethodCode()
+			carrier_code: this.getCarrierCode(),
+                        carrier_title: this.getCarrierTitle(),
+                        method_code: this.getMethodCode(),
+                        method_title: this.getMethodTitle(),
                     });
                     checkoutData.setSelectedShippingRate(this.getCarrierCode() + '_' + this.getMethodCode());
                 }
