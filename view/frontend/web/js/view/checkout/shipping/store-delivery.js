@@ -32,6 +32,8 @@ define([
             template: 'Smile_StoreDelivery/checkout/shipping/store-delivery',
             methodCode: 'smilestoredelivery',
             carrierCode: 'smilestoredelivery',
+            methodTitle: 'Store Delivery',
+            carrierTitle: 'Store Delivery',
             retailerId : retailer().entity_id || 0,
             init: true
         },
@@ -82,8 +84,16 @@ define([
             return this.methodCode;
         },
 
+	getMethodTitle: function() {
+            return this.methodTitle;
+        },
+	
         getCarrierCode: function() {
             return this.carrierCode;
+        },
+	
+	getCarrierTitle: function() {
+            return this.carrierTitle;
         },
 
         renderComponent: function() {
