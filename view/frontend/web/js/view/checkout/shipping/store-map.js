@@ -24,7 +24,7 @@ define([
                 }
             });
 
-            this.currentRetailerId = ko.observable();
+            this.currentRetailerId = ko.observable().extend({notify: 'always'});
             this.currentRetailerId.subscribe(this.setShippingAddress.bind(this));
         },
 
@@ -116,7 +116,6 @@ define([
                 }
                 marker.on('click', function () {
                     this.currentRetailerId(markerData.id);
-                    this.setShippingAddress();
                 }.bind(this));
                 markers.push(marker);
             }.bind(this));
