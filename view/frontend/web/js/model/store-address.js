@@ -44,6 +44,10 @@ define([], function() {
                 return false;
             },
 
+            isDefaultBilling: function() {
+                return false;
+            },
+
             getType: function() {
                 return 'store-delivery';
             },

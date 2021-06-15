@@ -32,6 +32,8 @@ define([
             template: 'Smile_StoreDelivery/checkout/shipping/store-delivery',
             methodCode: 'smilestoredelivery',
             carrierCode: 'smilestoredelivery',
+            methodTitle: 'Store Delivery',
+            carrierTitle: 'Store Delivery',
             retailerId : retailer().entity_id || 0,
             init: true
         },
@@ -43,8 +45,10 @@ define([
                 var type = quote.shippingAddress().getType();
                 if (type === 'store-delivery') {
                     selectShippingMethodAction({
-                        carrier_code: this.getCarrierCode(),
-                        method_code: this.getMethodCode()
+			carrier_code: this.getCarrierCode(),
+                        carrier_title: this.getCarrierTitle(),
+                        method_code: this.getMethodCode(),
+                        method_title: this.getMethodTitle(),
                     });
                     checkoutData.setSelectedShippingRate(this.getCarrierCode() + '_' + this.getMethodCode());
                 }
@@ -80,8 +84,16 @@ define([
             return this.methodCode;
         },
 
+	getMethodTitle: function() {
+            return this.methodTitle;
+        },
+	
         getCarrierCode: function() {
             return this.carrierCode;
+        },
+	
+	getCarrierTitle: function() {
+            return this.carrierTitle;
         },
 
         renderComponent: function() {

@@ -13,7 +13,7 @@
         "magento/framework": "*",
         "magento/module-store": "*",
         "magento/module-checkout": "*",
-        "smile/module-store-locator": "^1.3.0"
+        "smile/module-store-locator": "~1.3.0 || ~2.0.0"
     },
     "require-dev": {
         "smile/magento2-smilelab-quality-suite": "^1.0.5"
