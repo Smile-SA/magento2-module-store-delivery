@@ -118,6 +118,7 @@ define([
                     this.currentRetailerId(markerData.id);
                 }.bind(this));
                 markers.push(marker);
+                markerData.shopStatus(this.prepareShopStatus(markerData));
             }.bind(this));
 
             var group = new L.featureGroup(markers);
