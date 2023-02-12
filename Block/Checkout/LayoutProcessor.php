@@ -193,7 +193,7 @@ class LayoutProcessor implements LayoutProcessorInterface
                     [
                         'calendar'            => $this->scheduleManager->getCalendar($retailer),
                         'openingHours'        => $this->scheduleManager->getWeekOpeningHours($retailer),
-                        'specialOpeningHours' => $retailer->getExtensionAttributes()->getSpecialOpeningHours(),
+                        'specialOpeningHours' => $retailer->getExtensionAttributes()->getSpecialOpeningHours()->getDate(),
                     ]
                 );
 
