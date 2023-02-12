@@ -75,7 +75,7 @@ class SaveAddressPlugin
             $retailer = $this->retailerRepository->get($shippingAddress->getExtensionAttributes()->getRetailerId());
             if ($retailer->getId()) {
                 $address = $this->addressDataFactory->create(
-                    ['data' => $retailer->getAddress()->getData()]
+                    ['data' => $retailer->getExtensionAttributes()->getAddress()->getData()]
                 );
                 $shippingAddress->importCustomerAddressData($address);
                 $shippingAddress->setCompany($retailer->getName());
