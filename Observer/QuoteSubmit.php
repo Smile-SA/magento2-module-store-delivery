@@ -12,8 +12,12 @@
  */
 namespace Smile\StoreDelivery\Observer;
 
+use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Quote\Api\Data\AddressInterface;
+use Magento\Quote\Api\Data\CartInterface;
 use Magento\Shipping\Model\CarrierFactoryInterface;
+use Smile\StoreDelivery\Model\Carrier;
 
 /**
  * Observer to ensure Billing Address has required fields when using StoreDelivery shipping Method.
@@ -25,14 +29,14 @@ use Magento\Shipping\Model\CarrierFactoryInterface;
 class QuoteSubmit implements ObserverInterface
 {
     /**
-     * @var \Magento\Shipping\Model\CarrierFactoryInterface
+     * @var CarrierFactoryInterface
      */
-    private $carrierFactory;
+    private CarrierFactoryInterface $carrierFactory;
 
     /**
      * QuoteSubmit constructor.
      *
-     * @param \Magento\Shipping\Model\CarrierFactoryInterface $carrierFactory Carrier Factory
+     * @param CarrierFactoryInterface $carrierFactory Carrier Factory
      */
     public function __construct(CarrierFactoryInterface $carrierFactory)
     {
@@ -47,19 +51,19 @@ class QuoteSubmit implements ObserverInterface
      *
      * @event checkout_submit_before
      *
-     * @param \Magento\Framework\Event\Observer $observer The observer
+     * @param Observer $observer The observer
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer): void
     {
-        /** @var \Magento\Quote\Api\Data\CartInterface $quote */
+        /** @var CartInterface $quote */
         $quote = $observer->getQuote();
 
-        /** @var \Magento\Quote\Api\Data\AddressInterface $shippingAddress */
+        /** @var AddressInterface $shippingAddress */
         $shippingAddress = $quote->getShippingAddress();
         if ($shippingAddress) {
             $shippingMethod = $shippingAddress->getShippingMethod();
             if ($shippingMethod) {
-                $methodCode = \Smile\StoreDelivery\Model\Carrier::METHOD_CODE;
+                $methodCode = Carrier::METHOD_CODE;
                 $carrier    = $this->carrierFactory->getIfActive($methodCode);
                 if ($carrier && $shippingMethod === sprintf('%s_%s', $methodCode, $carrier->getCarrierCode())) {
                     $billingAddress = $quote->getBillingAddress();

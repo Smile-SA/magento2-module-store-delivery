@@ -14,8 +14,10 @@ namespace Smile\StoreDelivery\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
+use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
@@ -52,12 +54,12 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     /**
      * @var ResultFactory
      */
-    protected $rateResultFactory;
+    protected ResultFactory $rateResultFactory;
 
     /**
      * @var MethodFactory
      */
-    protected $rateMethodFactory;
+    protected MethodFactory $rateMethodFactory;
 
     /**
      * Carrier constructor
@@ -85,7 +87,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     /**
      * {@inheritdoc}
      */
-    public function getAllowedMethods()
+    public function getAllowedMethods(): array
     {
         return [$this->getCarrierCode() => __($this->getConfigData('name'))];
     }
@@ -93,16 +95,16 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     /**
      * {@inheritdoc}
      */
-    public function collectRates(RateRequest $request)
+    public function collectRates(RateRequest $request): false|Result
     {
         if (!$this->getConfigFlag('active')) {
             return false;
         }
 
-        /** @var \Magento\Shipping\Model\Rate\Result $result */
+        /** @var Result $result */
         $result = $this->rateResultFactory->create();
 
-        /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
+        /** @var Method $method */
         $method = $this->rateMethodFactory->create();
 
         $method->setCarrier($this->getCarrierCode());

@@ -12,6 +12,7 @@
  */
 namespace Smile\StoreDelivery\Plugin\Quote\Api;
 
+use Magento\Quote\Api\Data\ShippingMethodInterface;
 use Magento\Quote\Api\ShippingMethodManagementInterface;
 use Smile\StoreDelivery\Model\Carrier;
 
@@ -28,22 +29,22 @@ class ShippingMethodManagementPlugin
      * Remove StoreDelivery from available methods when estimating by address Id (existing customer addresses).
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
-     * @param \Magento\Quote\Api\ShippingMethodManagementInterface $subject   Shipping Method Management
-     * @param \Closure                                             $proceed   estimateByAddressId() method
-     * @param int                                                  $cartId    The shopping cart ID.
-     * @param int                                                  $addressId The estimate address id
+     * @param ShippingMethodManagementInterface $subject   Shipping Method Management
+     * @param \Closure                          $proceed   estimateByAddressId() method
+     * @param mixed                             $cartId    The shopping cart ID.
+     * @param mixed                             $addressId The estimate address id
      *
      * @return mixed
      */
     public function aroundEstimateByAddressId(
         ShippingMethodManagementInterface $subject,
         \Closure $proceed,
-        $cartId,
-        $addressId
-    ) {
+        mixed $cartId,
+        mixed $addressId
+    ): mixed {
         $shippingMethods = $proceed($cartId, $addressId);
 
-        /** @var \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethod */
+        /** @var ShippingMethodInterface $shippingMethod */
         foreach ($shippingMethods as $key => $shippingMethod) {
             if ($shippingMethod->getMethodCode() === Carrier::METHOD_CODE) {
                 unset($shippingMethods[$key]);

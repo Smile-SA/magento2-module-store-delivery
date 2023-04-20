@@ -33,8 +33,5 @@
         <plugin name="gift_registry_quote_address_to_order_address" type="Smile\StoreDelivery\Plugin\Quote\Model\ConvertQuoteAddressToOrderAddress"/>
     </type>
 
-    <!-- Fix issue with Temando module : https://github.com/magento/magento2/issues/12921 -->
-    <type name="\Temando\Shipping\Observer\SaveCheckoutFieldsObserver">
-        <plugin name="fix_temando_shipping_observer" type="Smile\StoreDelivery\Plugin\Temando\SaveCheckoutFieldsObserverPlugin"/>
-    </type>
+    <!-- Fix issue with Temando module : https://github.com/magento/magento2/issues/12921 - no more needed -->
 </config>

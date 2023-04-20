@@ -12,6 +12,10 @@
  */
 namespace Smile\StoreDelivery\Plugin\Quote\Model;
 
+use Magento\Quote\Model\Quote\Address;
+use Magento\Quote\Model\Quote\Address\ToOrderAddress;
+use Magento\Sales\Api\Data\OrderAddressInterface;
+
 /**
  * Plugin to copy "retailer_id" field from quote_address to order_address.
  * Done via a plugin because fieldset.xml does not seem to work.
@@ -25,20 +29,20 @@ namespace Smile\StoreDelivery\Plugin\Quote\Model;
 class ConvertQuoteAddressToOrderAddress
 {
     /**
-     * @param \Magento\Quote\Model\Quote\Address\ToOrderAddress $subject      The converter
-     * @param \Closure                                          $proceed      Converter convert() method
-     * @param \Magento\Quote\Model\Quote\Address                $quoteAddress Quote Address
-     * @param array                                             $data         Data
+     * @param ToOrderAddress    $subject      The converter
+     * @param \Closure          $proceed      Converter convert() method
+     * @param Address           $quoteAddress Quote Address
+     * @param array             $data         Data
      *
-     * @return \Magento\Sales\Api\Data\OrderAddressInterface Order Address
+     * @return OrderAddressInterface Order Address
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundConvert(
-        \Magento\Quote\Model\Quote\Address\ToOrderAddress $subject,
+        ToOrderAddress $subject,
         \Closure $proceed,
-        \Magento\Quote\Model\Quote\Address $quoteAddress,
-        $data = []
-    ) {
+        Address $quoteAddress,
+        array $data = []
+    ): OrderAddressInterface {
         $orderAddress = $proceed($quoteAddress, $data);
         if ($quoteAddress->getRetailerId()) {
             $orderAddress->setRetailerId($quoteAddress->getRetailerId());

@@ -32,26 +32,26 @@ use Smile\Seller\Api\Data\SellerInterface;
 class InstallData implements InstallDataInterface
 {
     /**
-     * @var \Magento\Sales\Setup\SalesSetupFactory
+     * @var SalesSetupFactory
      */
-    private $salesSetupFactory;
+    private SalesSetupFactory $salesSetupFactory;
 
     /**
-     * @var \Magento\Quote\Setup\QuoteSetupFactory
+     * @var QuoteSetupFactory
      */
-    private $quoteSetupFactory;
+    private QuoteSetupFactory $quoteSetupFactory;
 
     /**
-     * @var \Magento\Eav\Setup\EavSetupFactory
+     * @var EavSetupFactory
      */
-    private $eavSetupFactory;
+    private EavSetupFactory $eavSetupFactory;
 
     /**
      * InstallData constructor.
      *
-     * @param \Magento\Sales\Setup\SalesSetupFactory $salesSetupFactory Sales Setup
-     * @param \Magento\Quote\Setup\QuoteSetupFactory $quoteSetupFactory Quote Setup
-     * @param \Magento\Eav\Setup\EavSetupFactory     $eavSetupFactory   EAV Setup Factory.
+     * @param SalesSetupFactory $salesSetupFactory Sales Setup
+     * @param QuoteSetupFactory $quoteSetupFactory Quote Setup
+     * @param EavSetupFactory   $eavSetupFactory   EAV Setup Factory.
      */
     public function __construct(
         SalesSetupFactory $salesSetupFactory,
@@ -67,7 +67,7 @@ class InstallData implements InstallDataInterface
     /**
      * {@inheritdoc}
      */
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context): void
     {
         $setup->startSetup();
 
@@ -85,7 +85,7 @@ class InstallData implements InstallDataInterface
      *
      * @param ModuleDataSetupInterface $setup Data Setup
      */
-    private function addSalesAttributes($setup)
+    private function addSalesAttributes($setup): void
     {
         /** @var \Magento\Sales\Setup\SalesSetup $salesSetup */
         $salesSetup = $this->salesSetupFactory->create(['resourceName' => 'sales_setup', 'setup' => $setup]);
@@ -111,7 +111,7 @@ class InstallData implements InstallDataInterface
      *
      * @param \Magento\Eav\Setup\EavSetup $eavSetup EAV module Setup
      */
-    private function addShopAttributes($eavSetup)
+    private function addShopAttributes($eavSetup): void
     {
         $entityId  = SellerInterface::ENTITY;
         $attrSetId = RetailerInterface::ATTRIBUTE_SET_RETAILER;

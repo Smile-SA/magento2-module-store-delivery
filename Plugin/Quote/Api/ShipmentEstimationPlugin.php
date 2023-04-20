@@ -12,6 +12,8 @@
  */
 namespace Smile\StoreDelivery\Plugin\Quote\Api;
 
+use Magento\Quote\Api\Data\AddressInterface;
+use Magento\Quote\Api\Data\ShippingMethodInterface;
 use Magento\Quote\Api\ShipmentEstimationInterface;
 
 /**
@@ -28,23 +30,23 @@ class ShipmentEstimationPlugin
      * Ensure StoreDelivery is the only available shipping method for store delivery addresses.
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
-     * @param \Magento\Quote\Api\ShipmentEstimationInterface $subject Shipment Estimation Interface
-     * @param \Closure                                       $proceed The estimateByExtendedAddress method
-     * @param mixed                                          $cartId  The cart Id
-     * @param \Magento\Quote\Api\Data\AddressInterface       $address The Shipping Address
+     * @param ShipmentEstimationInterface   $subject Shipment Estimation Interface
+     * @param \Closure                      $proceed The estimateByExtendedAddress method
+     * @param mixed                         $cartId  The cart Id
+     * @param AddressInterface              $address The Shipping Address
      *
      * @return mixed
      */
     public function aroundEstimateByExtendedAddress(
         ShipmentEstimationInterface $subject,
         \Closure $proceed,
-        $cartId,
-        \Magento\Quote\Api\Data\AddressInterface $address
-    ) {
+        mixed $cartId,
+        AddressInterface $address
+    ): mixed {
         $shippingMethods = $proceed($cartId, $address);
 
         // If shipping address is linked to a retailer, remove all methods except Store Delivery.
-        /** @var \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethod */
+        /** @var ShippingMethodInterface $shippingMethod */
         foreach ($shippingMethods as $key => $shippingMethod) {
             if (($address->getExtensionAttributes() && $address->getExtensionAttributes()->getRetailerId()
                     && ($shippingMethod->getMethodCode() !== \Smile\StoreDelivery\Model\Carrier::METHOD_CODE)) ||

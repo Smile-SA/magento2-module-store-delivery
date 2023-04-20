@@ -12,6 +12,10 @@
  */
 namespace Smile\StoreDelivery\Plugin\Checkout\Api;
 
+use Magento\Checkout\Api\Data\ShippingInformationInterface;
+use Magento\Checkout\Api\ShippingInformationManagementInterface;
+use Magento\Customer\Api\Data\AddressInterfaceFactory;
+use Magento\Customer\Model\Session;
 use Smile\Retailer\Api\RetailerRepositoryInterface;
 
 /**
@@ -24,29 +28,29 @@ use Smile\Retailer\Api\RetailerRepositoryInterface;
 class SaveAddressPlugin
 {
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var Session
      */
-    private $customerSession;
+    private Session $customerSession;
 
     /**
-     * @var \Smile\Retailer\Api\RetailerRepositoryInterface
+     * @var RetailerRepositoryInterface
      */
-    private $retailerRepository;
+    private RetailerRepositoryInterface $retailerRepository;
 
     /**
-     * @var \Magento\Customer\Api\Data\AddressInterfaceFactory
+     * @var AddressInterfaceFactory
      */
-    private $addressDataFactory;
+    private AddressInterfaceFactory $addressDataFactory;
 
     /**
-     * @param RetailerRepositoryInterface                        $retailerRepository      Retailer Repository
-     * @param \Magento\Customer\Model\Session                    $customerSession         Customer session
-     * @param \Magento\Customer\Api\Data\AddressInterfaceFactory $addressInterfaceFactory Address Factory
+     * @param RetailerRepositoryInterface   $retailerRepository      Retailer Repository
+     * @param Session                       $customerSession         Customer session
+     * @param AddressInterfaceFactory       $addressInterfaceFactory Address Factory
      */
     public function __construct(
         RetailerRepositoryInterface $retailerRepository,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Api\Data\AddressInterfaceFactory $addressInterfaceFactory
+        Session $customerSession,
+        AddressInterfaceFactory $addressInterfaceFactory
     ) {
         $this->retailerRepository = $retailerRepository;
         $this->customerSession    = $customerSession;
@@ -57,17 +61,17 @@ class SaveAddressPlugin
      * Convert Store Address to Shipping Address
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
-     * @param \Magento\Checkout\Api\ShippingInformationManagementInterface $subject            Shipping Information Management
-     * @param int                                                          $cartId             Cart Id
-     * @param \Magento\Checkout\Api\Data\ShippingInformationInterface      $addressInformation Address Information
+     * @param ShippingInformationManagementInterface    $subject            Shipping Information Management
+     * @param mixed                                     $cartId             Cart Id
+     * @param ShippingInformationInterface              $addressInformation Address Information
      *
      * @return void
      */
     public function beforeSaveAddressInformation(
-        \Magento\Checkout\Api\ShippingInformationManagementInterface $subject,
-        $cartId,
-        \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-    ) {
+        ShippingInformationManagementInterface $subject,
+        mixed $cartId,
+        ShippingInformationInterface $addressInformation
+    ): void {
         $shippingAddress = $addressInformation->getShippingAddress();
         $billingAddress  = $addressInformation->getBillingAddress();
 

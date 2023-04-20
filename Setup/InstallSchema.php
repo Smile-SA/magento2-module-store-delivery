@@ -12,6 +12,7 @@
  */
 namespace Smile\StoreDelivery\Setup;
 
+use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -27,16 +28,16 @@ use Magento\Framework\Setup\SchemaSetupInterface;
 class InstallSchema implements InstallSchemaInterface
 {
     /**
-     * @var \Magento\Framework\App\ProductMetadataInterface
+     * @var ProductMetadataInterface
      */
-    private $metadata;
+    private ProductMetadataInterface $metadata;
 
     /**
      * InstallSchema constructor.
      *
-     * @param \Magento\Framework\App\ProductMetadataInterface $metadata Magento metadata
+     * @param ProductMetadataInterface $metadata Magento metadata
      */
-    public function __construct(\Magento\Framework\App\ProductMetadataInterface $metadata)
+    public function __construct(ProductMetadataInterface $metadata)
     {
         $this->metadata = $metadata;
     }
@@ -44,7 +45,7 @@ class InstallSchema implements InstallSchemaInterface
     /**
      * {@inheritdoc}
      */
-    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context): void
     {
         $setup->startSetup();
 
