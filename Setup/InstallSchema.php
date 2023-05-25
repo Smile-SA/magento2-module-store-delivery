@@ -1,18 +1,9 @@
 <?php
-/**
- * DISCLAIMER
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\StoreDelivery
- * @author    Romain Ruaud <romain.ruaud@smile.fr>
- * @copyright 2017 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
 namespace Smile\StoreDelivery\Setup;
 
 use Magento\Framework\App\ProductMetadataInterface;
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -20,32 +11,17 @@ use Magento\Framework\Setup\SchemaSetupInterface;
 /**
  * Smile StoreDelivery Install Schema.
  * Mandatory for Magento <2.2 to backport a fix on shipping_method field.
- *
- * @category Smile
- * @package  Smile\StoreDelivery
- * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class InstallSchema implements InstallSchemaInterface
 {
-    /**
-     * @var ProductMetadataInterface
-     */
-    private ProductMetadataInterface $metadata;
-
-    /**
-     * InstallSchema constructor.
-     *
-     * @param ProductMetadataInterface $metadata Magento metadata
-     */
-    public function __construct(ProductMetadataInterface $metadata)
+    public function __construct(private ProductMetadataInterface $metadata)
     {
-        $this->metadata = $metadata;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context): void
+    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
 
@@ -61,7 +37,7 @@ class InstallSchema implements InstallSchemaInterface
                 $setup->getTable('quote_address'),
                 'shipping_method',
                 [
-                    'type'   => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'type'   => Table::TYPE_TEXT,
                     'length' => 120,
                 ]
             );
@@ -70,7 +46,7 @@ class InstallSchema implements InstallSchemaInterface
                 $setup->getTable('sales_order'),
                 'shipping_method',
                 [
-                    'type'   => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'type'   => Table::TYPE_TEXT,
                     'length' => 120,
                 ]
             );

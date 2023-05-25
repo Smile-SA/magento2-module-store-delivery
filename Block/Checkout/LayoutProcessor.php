@@ -1,15 +1,5 @@
 <?php
-/**
- * DISCLAIMER
- * Do not edit or add to this file if you wish to upgrade Smile Elastic Suite to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\StoreDelivery
- * @author    Romain Ruaud <romain.ruaud@smile.fr>
- * @copyright 2017 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
 namespace Smile\StoreDelivery\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
@@ -30,102 +20,30 @@ use Smile\StoreLocator\Model\Retailer\ScheduleManagement;
 /**
  * Specific JS Layout processor for StoreDelivery.
  * Inject Map, Geolocation and Stores into checkout UI Components.
- *
- * @category Smile
- * @package  Smile\StoreDelivery
- * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class LayoutProcessor implements LayoutProcessorInterface
 {
-    /**
-     * @var string
-     */
     private string $methodCode = Carrier::METHOD_CODE;
-
-    /**
-     * @var MapInterface
-     */
     private MapInterface $map;
 
-    /**
-     * @var CollectionFactory
-     */
-    private CollectionFactory $retailerCollectionFactory;
-
-    /**
-     * @var Data
-     */
-    private Data $storeLocatorHelper;
-
-    /**
-     * @var AddressFormatter
-     */
-    private AddressFormatter $addressFormatter;
-
-    /**
-     * @var Schedule
-     */
-    private Schedule $scheduleHelper;
-
-    /**
-     * @var ScheduleManagement
-     */
-    private ScheduleManagement $scheduleManager;
-
-    /**
-     * @var CarrierFactoryInterface
-     */
-    private CarrierFactoryInterface $carrierFactory;
-
-    /**
-     * @var UrlInterface
-     */
-    private UrlInterface $urlBuilder;
-
-    /**
-     * @var CacheInterface
-     */
-    private CacheInterface $cache;
-
-    /**
-     * Constructor.
-     *
-     * @param MapProviderInterface                $mapProvider               $mapProvider Map provider.
-     * @param CollectionFactory                   $retailerCollectionFactory Retailer collection factory.
-     * @param Data                                $storeLocatorHelper        Store locator helper.
-     * @param AddressFormatter                    $addressFormatter          Address formatter tool.
-     * @param Schedule                            $scheduleHelper            Schedule Helper
-     * @param ScheduleManagement                  $scheduleManagement        Schedule Management
-     * @param CarrierFactoryInterface             $carrierFactory            Carrier Factory
-     * @param UrlInterface                        $urlBuilder                URL Builder
-     * @param CacheInterface                      $cacheInterface            Cache Interface
-     */
     public function __construct(
-        MapProviderInterface                $mapProvider,
-        CollectionFactory                   $retailerCollectionFactory,
-        Data                                $storeLocatorHelper,
-        AddressFormatter                    $addressFormatter,
-        Schedule                            $scheduleHelper,
-        ScheduleManagement                  $scheduleManagement,
-        CarrierFactoryInterface             $carrierFactory,
-        UrlInterface                        $urlBuilder,
-        CacheInterface                      $cacheInterface
+        MapProviderInterface $mapProvider,
+        private CollectionFactory $retailerCollectionFactory,
+        private Data $storeLocatorHelper,
+        private AddressFormatter $addressFormatter,
+        private Schedule $scheduleHelper,
+        private ScheduleManagement $scheduleManagement,
+        private CarrierFactoryInterface $carrierFactory,
+        private UrlInterface $urlBuilder,
+        private CacheInterface $cache
     ) {
-        $this->map                       = $mapProvider->getMap();
-        $this->retailerCollectionFactory = $retailerCollectionFactory;
-        $this->storeLocatorHelper        = $storeLocatorHelper;
-        $this->addressFormatter          = $addressFormatter;
-        $this->scheduleHelper            = $scheduleHelper;
-        $this->scheduleManager           = $scheduleManagement;
-        $this->carrierFactory            = $carrierFactory;
-        $this->urlBuilder                = $urlBuilder;
-        $this->cache                     = $cacheInterface;
+        $this->map = $mapProvider->getMap();
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function process($jsLayout): array
+    public function process($jsLayout)
     {
         if ($this->carrierFactory->getIfActive($this->methodCode)) {
             // @codingStandardsIgnoreStart
@@ -136,8 +54,8 @@ class LayoutProcessor implements LayoutProcessorInterface
             // @codingStandardsIgnoreEnd
 
             $storeDelivery['provider'] = $this->map->getIdentifier();
-            $storeDelivery['markers']  = $this->getStores();
-            $storeDelivery             = array_merge($storeDelivery, $this->map->getConfig());
+            $storeDelivery['markers'] = $this->getStores();
+            $storeDelivery = array_merge($storeDelivery, $this->map->getConfig());
 
             // @codingStandardsIgnoreStart
             $jsLayout['components']['checkout']['children']['steps']['children']
@@ -154,7 +72,7 @@ class LayoutProcessor implements LayoutProcessorInterface
             // @codingStandardsIgnoreEnd
 
             $geocoder['provider'] = $this->map->getIdentifier();
-            $geocoder             = array_merge($geocoder, $this->map->getConfig());
+            $geocoder = array_merge($geocoder, $this->map->getConfig());
 
             // @codingStandardsIgnoreStart
             $jsLayout['components']['checkout']['children']['steps']['children']
@@ -169,8 +87,6 @@ class LayoutProcessor implements LayoutProcessorInterface
 
     /**
      * List of markers displayed on the map.
-     *
-     * @return array
      */
     private function getStores(): array
     {
@@ -185,22 +101,23 @@ class LayoutProcessor implements LayoutProcessorInterface
                 $address    = $retailer->getExtensionAttributes()->getAddress();
                 $coords     = $address->getCoordinates();
                 $markerData = [
-                    'id'           => $retailer->getId(),
-                    'latitude'     => $coords->getLatitude(),
-                    'longitude'    => $coords->getLongitude(),
-                    'name'         => $retailer->getName(),
-                    'address'      => $this->addressFormatter->formatAddress($address, AddressFormatter::FORMAT_ONELINE),
-                    'url'          => $this->storeLocatorHelper->getRetailerUrl($retailer),
+                    'id' => $retailer->getId(),
+                    'latitude' => $coords->getLatitude(),
+                    'longitude' => $coords->getLongitude(),
+                    'name' => $retailer->getName(),
+                    'address' => $this->addressFormatter->formatAddress($address, AddressFormatter::FORMAT_ONELINE),
+                    'url' => $this->storeLocatorHelper->getRetailerUrl($retailer),
                     'directionUrl' => $this->map->getDirectionUrl($address->getCoordinates()),
                     'setStoreData' => $this->getSetStorePostData($retailer),
-                    'addressData'  => $address->getData(),
+                    'addressData' => $address->getData(),
                 ];
 
+                // phpcs:ignore Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge
                 $markerData['schedule'] = array_merge(
                     $this->scheduleHelper->getConfig(),
                     [
-                        'calendar'            => $this->scheduleManager->getCalendar($retailer),
-                        'openingHours'        => $this->scheduleManager->getWeekOpeningHours($retailer),
+                        'calendar' => $this->scheduleManagement->getCalendar($retailer),
+                        'openingHours' => $this->scheduleManagement->getWeekOpeningHours($retailer),
                         'specialOpeningHours' => $retailer->getExtensionAttributes()->getSpecialOpeningHours(),
                     ]
                 );
@@ -221,8 +138,6 @@ class LayoutProcessor implements LayoutProcessorInterface
 
     /**
      * Collection of displayed retailers.
-     *
-     * @return Collection
      */
     private function getRetailerCollection(): Collection
     {
@@ -239,12 +154,8 @@ class LayoutProcessor implements LayoutProcessorInterface
 
     /**
      * Get the JSON post data used to build the set store link.
-     *
-     * @param RetailerInterface $retailer The store
-     *
-     * @return array
      */
-    private function getSetStorePostData($retailer): array
+    private function getSetStorePostData(RetailerInterface $retailer): array
     {
         $setUrl   = $this->urlBuilder->getUrl('storelocator/store/set');
         $postData = ['id' => $retailer->getId()];

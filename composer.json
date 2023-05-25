@@ -3,22 +3,6 @@
     "type": "magento2-module",
     "description": "Smile Store Delivery",
     "keywords": ["magento2", "store delivery", "click in store", "delivery in store"],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repo.magento.com/"
-        }
-    ],
-    "require": {
-        "php": "^8.1",
-        "magento/framework": ">=103.0.4",
-        "magento/module-store": "*",
-        "magento/module-checkout": "*",
-        "smile/module-store-locator": "~2.2.0"
-    },
-    "require-dev": {
-        "smile/magento2-smilelab-quality-suite": "^3.0"
-    },
     "license": "OSL-3.0",
     "authors": [
         {
@@ -26,14 +10,37 @@
             "email": "romain.ruaud@smile.fr"
         }
     ],
+    "require": {
+        "php": "^8.1",
+        "magento/framework": ">=103.0.4",
+        "magento/module-checkout": ">=100.4.4",
+        "magento/module-store": ">=101.1.4",
+        "smile/module-store-locator": "^2.0"
+    },
+    "require-dev": {
+        "smile/magento2-smilelab-quality-suite": "^3.0"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "files": [
             "registration.php"
         ],
         "psr-4": {
-            "Smile\\StoreDelivery\\" : ""
+            "Smile\\StoreDelivery\\": ""
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "config": {
+        "allow-plugins": {
+            "magento/composer-dependency-version-audit-plugin": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    }
 }
