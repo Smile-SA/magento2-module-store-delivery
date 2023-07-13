@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Plugin\Quote\Api;
 
 use Closure;

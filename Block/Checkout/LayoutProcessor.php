@@ -1,18 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 use Magento\Framework\App\CacheInterface;
+use Magento\Framework\DataObject;
 use Magento\Framework\UrlInterface;
 use Magento\Shipping\Model\CarrierFactoryInterface;
 use Smile\Map\Api\MapInterface;
 use Smile\Map\Api\MapProviderInterface;
 use Smile\Map\Model\AddressFormatter;
+use Smile\Retailer\Api\Data\RetailerExtensionInterface;
 use Smile\Retailer\Api\Data\RetailerInterface;
 use Smile\Retailer\Model\ResourceModel\Retailer\Collection;
 use Smile\Retailer\Model\ResourceModel\Retailer\CollectionFactory;
 use Smile\StoreDelivery\Model\Carrier;
+use Smile\StoreLocator\Api\Data\RetailerAddressInterface;
 use Smile\StoreLocator\Helper\Data;
 use Smile\StoreLocator\Helper\Schedule;
 use Smile\StoreLocator\Model\Retailer\ScheduleManagement;
@@ -98,8 +103,11 @@ class LayoutProcessor implements LayoutProcessorInterface
             $markers = [];
             /** @var RetailerInterface $retailer */
             foreach ($collection as $retailer) {
-                $address    = $retailer->getExtensionAttributes()->getAddress();
-                $coords     = $address->getCoordinates();
+                /** @var RetailerExtensionInterface $retailerExtensionAttr */
+                $retailerExtensionAttr = $retailer->getExtensionAttributes();
+                /** @var DataObject|RetailerAddressInterface $address */
+                $address               = $retailerExtensionAttr->getAddress();
+                $coords                = $address->getCoordinates();
                 $markerData = [
                     'id' => $retailer->getId(),
                     'latitude' => $coords->getLatitude(),
@@ -118,7 +126,7 @@ class LayoutProcessor implements LayoutProcessorInterface
                     [
                         'calendar' => $this->scheduleManagement->getCalendar($retailer),
                         'openingHours' => $this->scheduleManagement->getWeekOpeningHours($retailer),
-                        'specialOpeningHours' => $retailer->getExtensionAttributes()->getSpecialOpeningHours(),
+                        'specialOpeningHours' => $retailerExtensionAttr->getSpecialOpeningHours(),
                     ]
                 );
 

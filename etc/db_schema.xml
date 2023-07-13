@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- adding retailer_id column to quote and sales_order tables -->
+    <table name="sales_order_address" resource="default" engine="innodb">
+        <column xsi:type="int" name="retailer_id" unsigned="true" nullable="true" default="null"
+                comment="Retailer ID"/>
+    </table>
+    <table name="quote_address" resource="default" engine="innodb">
+        <column xsi:type="int" name="retailer_id" unsigned="true" nullable="true" default="null"
+                comment="Retailer ID"/>
+    </table>
+</schema>

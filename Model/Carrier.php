@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\DataObject;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
@@ -53,7 +56,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
             return false;
         }
 
-        /** @var Result $result */
+        /** @var Result|DataObject $result */
         $result = $this->rateResultFactory->create();
 
         /** @var Method $method */
@@ -65,7 +68,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         $method->setMethod($this->getCarrierCode());
         $method->setMethodTitle($this->getConfigData('name'));
 
-        $amount = $this->getConfigData('price');
+        $amount = (float) $this->getConfigData('price');
 
         $price = $this->getFinalPriceWithHandlingFee($amount);
 

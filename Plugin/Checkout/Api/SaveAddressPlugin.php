@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Plugin\Checkout\Api;
 
 use Magento\Checkout\Api\Data\ShippingInformationInterface;
 use Magento\Checkout\Api\ShippingInformationManagementInterface;
 use Magento\Customer\Api\Data\AddressInterfaceFactory;
+use Magento\Quote\Model\Quote\Address;
+use Smile\Retailer\Api\Data\RetailerInterface;
 use Smile\Retailer\Api\RetailerRepositoryInterface;
 
 /**
@@ -31,18 +35,22 @@ class SaveAddressPlugin
         mixed $cartId,
         ShippingInformationInterface $addressInformation
     ): void {
+        /** @var Address $shippingAddress */
         $shippingAddress = $addressInformation->getShippingAddress();
         $billingAddress  = $addressInformation->getBillingAddress();
 
+        // @phpstan-ignore-next-line
         if ($shippingAddress->getExtensionAttributes() && $shippingAddress->getExtensionAttributes()->getRetailerId()) {
+            /** @var RetailerInterface $retailer */
+            // @phpstan-ignore-next-line
             $retailer = $this->retailerRepository->get($shippingAddress->getExtensionAttributes()->getRetailerId());
             if ($retailer->getId()) {
                 $address = $this->addressDataFactory->create(
-                    ['data' => $retailer->getAddress()->getData()]
+                    ['data' => $retailer->getData('address')->getData()]
                 );
                 $shippingAddress->importCustomerAddressData($address);
                 $shippingAddress->setCompany($retailer->getName());
-                $shippingAddress->setRetailerId((int) $retailer->getId());
+                $shippingAddress->setData('retailer_id', (string) $retailer->getId());
 
                 // Potentially copy billing fields (if present, this is not the case when customer is not logged in).
                 if (!$shippingAddress->getFirstname()) {
