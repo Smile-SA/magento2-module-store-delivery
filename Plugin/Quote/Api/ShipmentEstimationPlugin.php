@@ -33,11 +33,9 @@ class ShipmentEstimationPlugin
         foreach ($shippingMethods as $key => $shippingMethod) {
             if (
                 ($address->getExtensionAttributes()
-                // @phpstan-ignore-next-line
                 && $address->getExtensionAttributes()->getRetailerId()
                     && ($shippingMethod->getMethodCode() !== Carrier::METHOD_CODE))
                 || ((!$address->getExtensionAttributes()
-                // @phpstan-ignore-next-line
                 || (null === $address->getExtensionAttributes()->getRetailerId()))
                     && ($shippingMethod->getMethodCode() === Carrier::METHOD_CODE))
             ) {

@@ -36,6 +36,7 @@ class QuoteSubmit implements ObserverInterface
         /** @var AddressInterface $shippingAddress */
         // @phpstan-ignore-next-line : correct reference to interface
         $shippingAddress = $quote->getShippingAddress();
+        // @phpstan-ignore-next-line
         if ($shippingAddress) {
             // @phpstan-ignore-next-line : correct reference to interface
             $shippingMethod = $shippingAddress->getShippingMethod();

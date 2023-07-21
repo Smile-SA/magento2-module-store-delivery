@@ -19,7 +19,6 @@
         <exclude name="Magento2.Exceptions.DirectThrow.FoundDirectThrow"/>
         <exclude name="Magento2.Legacy.InstallUpgrade.ObsoleteInstallDataScript"/>
         <exclude name="Magento2.Legacy.InstallUpgrade.ObsoleteInstallSchemaScript"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing"/>
     </rule>
 
     <file>.</file>
