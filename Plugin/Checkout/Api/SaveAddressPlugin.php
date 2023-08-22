@@ -39,9 +39,11 @@ class SaveAddressPlugin
         $shippingAddress = $addressInformation->getShippingAddress();
         $billingAddress  = $addressInformation->getBillingAddress();
 
+        // @phpstan-ignore-next-line
         if ($shippingAddress->getExtensionAttributes() && $shippingAddress->getExtensionAttributes()->getRetailerId()) {
             /** @var RetailerInterface $retailer */
             $retailer = $this->retailerRepository->get(
+                // @phpstan-ignore-next-line
                 (int) $shippingAddress->getExtensionAttributes()->getRetailerId()
             );
             if ($retailer->getId()) {
