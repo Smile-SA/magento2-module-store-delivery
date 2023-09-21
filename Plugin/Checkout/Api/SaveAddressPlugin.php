@@ -1,85 +1,58 @@
 <?php
-/**
- * DISCLAIMER
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\StoreDelivery
- * @author    Romain Ruaud <romain.ruaud@smile.fr>
- * @copyright 2017 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Plugin\Checkout\Api;
 
+use Magento\Checkout\Api\Data\ShippingInformationInterface;
+use Magento\Checkout\Api\ShippingInformationManagementInterface;
+use Magento\Customer\Api\Data\AddressInterfaceFactory;
+use Magento\Quote\Model\Quote\Address;
+use Smile\Retailer\Api\Data\RetailerInterface;
 use Smile\Retailer\Api\RetailerRepositoryInterface;
 
 /**
- * Plugin to save a Store address as Shipping Address
- *
- * @category Smile
- * @package  Smile\StoreDelivery
- * @author   Romain Ruaud <romain.ruaud@smile.fr>
+ * Plugin to save a Store address as Shipping Address.
  */
 class SaveAddressPlugin
 {
-    /**
-     * @var \Magento\Customer\Model\Session
-     */
-    private $customerSession;
+    private AddressInterfaceFactory $addressDataFactory;
 
-    /**
-     * @var \Smile\Retailer\Api\RetailerRepositoryInterface
-     */
-    private $retailerRepository;
-
-    /**
-     * @var \Magento\Customer\Api\Data\AddressInterfaceFactory
-     */
-    private $addressDataFactory;
-
-    /**
-     * @param RetailerRepositoryInterface                        $retailerRepository      Retailer Repository
-     * @param \Magento\Customer\Model\Session                    $customerSession         Customer session
-     * @param \Magento\Customer\Api\Data\AddressInterfaceFactory $addressInterfaceFactory Address Factory
-     */
     public function __construct(
-        RetailerRepositoryInterface $retailerRepository,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Api\Data\AddressInterfaceFactory $addressInterfaceFactory
+        private RetailerRepositoryInterface $retailerRepository,
+        AddressInterfaceFactory $addressInterfaceFactory
     ) {
-        $this->retailerRepository = $retailerRepository;
-        $this->customerSession    = $customerSession;
         $this->addressDataFactory = $addressInterfaceFactory;
     }
 
     /**
-     * Convert Store Address to Shipping Address
+     * Convert Store Address to Shipping Address.
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
-     * @param \Magento\Checkout\Api\ShippingInformationManagementInterface $subject            Shipping Information Management
-     * @param int                                                          $cartId             Cart Id
-     * @param \Magento\Checkout\Api\Data\ShippingInformationInterface      $addressInformation Address Information
-     *
-     * @return void
      */
     public function beforeSaveAddressInformation(
-        \Magento\Checkout\Api\ShippingInformationManagementInterface $subject,
-        $cartId,
-        \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-    ) {
+        ShippingInformationManagementInterface $subject,
+        mixed $cartId,
+        ShippingInformationInterface $addressInformation
+    ): void {
+        /** @var Address $shippingAddress */
         $shippingAddress = $addressInformation->getShippingAddress();
         $billingAddress  = $addressInformation->getBillingAddress();
 
+        // @phpstan-ignore-next-line
         if ($shippingAddress->getExtensionAttributes() && $shippingAddress->getExtensionAttributes()->getRetailerId()) {
-            $retailer = $this->retailerRepository->get($shippingAddress->getExtensionAttributes()->getRetailerId());
+            /** @var RetailerInterface $retailer */
+            $retailer = $this->retailerRepository->get(
+                // @phpstan-ignore-next-line
+                (int) $shippingAddress->getExtensionAttributes()->getRetailerId()
+            );
             if ($retailer->getId()) {
                 $address = $this->addressDataFactory->create(
-                    ['data' => $retailer->getAddress()->getData()]
+                    ['data' => $retailer->getData('address')->getData()]
                 );
                 $shippingAddress->importCustomerAddressData($address);
                 $shippingAddress->setCompany($retailer->getName());
-                $shippingAddress->setRetailerId((int) $retailer->getId());
+                $shippingAddress->setData('retailer_id', (string) $retailer->getId());
 
                 // Potentially copy billing fields (if present, this is not the case when customer is not logged in).
                 if (!$shippingAddress->getFirstname()) {

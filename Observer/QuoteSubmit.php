@@ -1,65 +1,47 @@
 <?php
-/**
- * DISCLAIMER
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\StoreDelivery
- * @author    Romain Ruaud <romain.ruaud@smile.fr>
- * @copyright 2017 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Observer;
 
+use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Quote\Api\Data\AddressInterface;
+use Magento\Quote\Api\Data\CartInterface;
+use Magento\Quote\Model\Quote;
 use Magento\Shipping\Model\CarrierFactoryInterface;
+use Smile\StoreDelivery\Model\Carrier;
 
 /**
  * Observer to ensure Billing Address has required fields when using StoreDelivery shipping Method.
- *
- * @category Smile
- * @package  Smile\StoreDelivery
- * @author   Romain Ruaud <romain.ruaud@smile.fr>
  */
 class QuoteSubmit implements ObserverInterface
 {
-    /**
-     * @var \Magento\Shipping\Model\CarrierFactoryInterface
-     */
-    private $carrierFactory;
-
-    /**
-     * QuoteSubmit constructor.
-     *
-     * @param \Magento\Shipping\Model\CarrierFactoryInterface $carrierFactory Carrier Factory
-     */
-    public function __construct(CarrierFactoryInterface $carrierFactory)
+    public function __construct(private CarrierFactoryInterface $carrierFactory)
     {
-        $this->carrierFactory = $carrierFactory;
     }
 
     /**
-     * Set mandatory fields to shipping address from the billing one, if needed.
-     *
-     * This can occur when using Store Delivery, since the Shipping Address is set before the Billing.
-     * In this case, the shipping address may not have the proper value for FirstName, LastName, and Telephone.
-     *
-     * @event checkout_submit_before
-     *
-     * @param \Magento\Framework\Event\Observer $observer The observer
+     * @inheritdoc
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
-        /** @var \Magento\Quote\Api\Data\CartInterface $quote */
+        // Set mandatory fields to shipping address from the billing one, if needed.
+        // This can occur when using Store Delivery, since the Shipping Address is set before the Billing.
+        // In this case, the shipping address may not have the proper value for FirstName, LastName, and Telephone.
+
+        /** @var CartInterface|Quote $quote */
         $quote = $observer->getQuote();
 
-        /** @var \Magento\Quote\Api\Data\AddressInterface $shippingAddress */
+        /** @var AddressInterface $shippingAddress */
+        // @phpstan-ignore-next-line : correct reference to interface
         $shippingAddress = $quote->getShippingAddress();
+        // @phpstan-ignore-next-line
         if ($shippingAddress) {
+            // @phpstan-ignore-next-line : correct reference to interface
             $shippingMethod = $shippingAddress->getShippingMethod();
             if ($shippingMethod) {
-                $methodCode = \Smile\StoreDelivery\Model\Carrier::METHOD_CODE;
+                $methodCode = Carrier::METHOD_CODE;
                 $carrier    = $this->carrierFactory->getIfActive($methodCode);
                 if ($carrier && $shippingMethod === sprintf('%s_%s', $methodCode, $carrier->getCarrierCode())) {
                     $billingAddress = $quote->getBillingAddress();

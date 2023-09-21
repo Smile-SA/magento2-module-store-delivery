@@ -1,89 +1,46 @@
 <?php
-/**
- * DISCLAIMER
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\StoreDelivery
- * @author    Romain Ruaud <romain.ruaud@smile.fr>
- * @copyright 2017 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
+
 namespace Smile\StoreDelivery\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Quote\Model\Quote\Address\RateRequest;
+use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
+use Magento\Quote\Model\Quote\Address\RateResult\Method;
+use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
+use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
-use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
-use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
-use Magento\Quote\Model\Quote\Address\RateRequest;
 use Psr\Log\LoggerInterface;
 
 /**
- * Store Delivery Carrier model
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
- *
- * @category Smile
- * @package  Smile\StoreDelivery
- * @author   Romain Ruaud <romain.ruaud@smile.fr>
+ * Store Delivery Carrier model.
  */
 class Carrier extends AbstractCarrier implements CarrierInterface
 {
-    /**
-     * Constant for method code
-     */
-    const METHOD_CODE = 'smilestoredelivery';
+    public const METHOD_CODE = 'smilestoredelivery';
 
-    /**
-     * @var string
-     */
+    // phpcs:disable SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     protected $_code = self::METHOD_CODE;
-
-    /**
-     * Whether this carrier has fixed rates calculation
-     *
-     * @var boolean
-     */
     protected $_isFixed = true;
+    // phpcs:enable
 
-    /**
-     * @var ResultFactory
-     */
-    protected $rateResultFactory;
-
-    /**
-     * @var MethodFactory
-     */
-    protected $rateMethodFactory;
-
-    /**
-     * Carrier constructor
-     *
-     * @param ScopeConfigInterface $scopeConfig       Scope Configuration
-     * @param ErrorFactory         $rateErrorFactory  Rate error Factory
-     * @param LoggerInterface      $logger            Logger
-     * @param ResultFactory        $rateResultFactory Rate result Factory
-     * @param MethodFactory        $rateMethodFactory Rate method Factory
-     * @param array                $data              Carrier Data
-     */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         ErrorFactory $rateErrorFactory,
         LoggerInterface $logger,
-        ResultFactory $rateResultFactory,
-        MethodFactory $rateMethodFactory,
+        protected ResultFactory $rateResultFactory,
+        protected MethodFactory $rateMethodFactory,
         array $data = []
     ) {
-        $this->rateResultFactory = $rateResultFactory;
-        $this->rateMethodFactory = $rateMethodFactory;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getAllowedMethods()
     {
@@ -91,7 +48,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function collectRates(RateRequest $request)
     {
@@ -99,10 +56,10 @@ class Carrier extends AbstractCarrier implements CarrierInterface
             return false;
         }
 
-        /** @var \Magento\Shipping\Model\Rate\Result $result */
+        /** @var Result|DataObject $result */
         $result = $this->rateResultFactory->create();
 
-        /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
+        /** @var Method $method */
         $method = $this->rateMethodFactory->create();
 
         $method->setCarrier($this->getCarrierCode());
@@ -111,7 +68,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         $method->setMethod($this->getCarrierCode());
         $method->setMethodTitle($this->getConfigData('name'));
 
-        $amount = $this->getConfigData('price');
+        $amount = (float) $this->getConfigData('price');
 
         $price = $this->getFinalPriceWithHandlingFee($amount);
 

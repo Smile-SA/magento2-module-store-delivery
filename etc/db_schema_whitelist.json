@@ -1,0 +1,12 @@
+{
+    "sales_order_address": {
+        "column": {
+            "retailer_id": true
+        }
+    },
+    "quote_address": {
+        "column": {
+            "retailer_id": true
+        }
+    }
+}

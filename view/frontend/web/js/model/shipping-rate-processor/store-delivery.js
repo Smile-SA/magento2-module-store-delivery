@@ -1,4 +1,3 @@
-/*global define*/
 define(
     [
         'Magento_Checkout/js/model/resource-url-manager',
