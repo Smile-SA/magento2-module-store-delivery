@@ -6,21 +6,21 @@ This module add the ability to be delivered in store. Store delivery is a shippi
 
 ### Requirements
 
-The module requires :
+The module requires:
 
-- [Store Locator](https://github.com/Smile-SA/magento2-module-store-locator) > 2.2.*
+- [Store Locator](https://github.com/Smile-SA/magento2-module-store-locator) >= 2.2.*
 
 ### How to use
 
-1. Install the module via Composer :
+1. Install the module via Composer:
 
 ``` composer require smile/module-store-delivery ```
 
-2. Enable it
+2. Enable it:
 
 ``` bin/magento module:enable Smile_StoreDelivery ```
 
-3. Install the module and rebuild the DI cache
+3. Install the module and rebuild the DI cache:
 
 ``` bin/magento setup:upgrade ```
 
