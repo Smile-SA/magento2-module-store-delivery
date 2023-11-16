@@ -63,6 +63,7 @@ class LayoutProcessor implements LayoutProcessorInterface
 
                 $storeDelivery['provider'] = $this->map->getIdentifier();
                 $storeDelivery['markers'] = $markers;
+                $storeDelivery['searchPlaceholderText'] = $this->storeLocatorHelper->getSearchPlaceholder();
                 $storeDelivery = array_merge($storeDelivery, $this->map->getConfig());
 
                 // @codingStandardsIgnoreStart
