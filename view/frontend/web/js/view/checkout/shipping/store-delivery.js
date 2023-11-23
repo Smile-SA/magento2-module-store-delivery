@@ -28,7 +28,7 @@ define([
                 var type = quote.shippingAddress().getType();
                 if (type === 'store-delivery') {
                     selectShippingMethodAction({
-			carrier_code: this.getCarrierCode(),
+			            carrier_code: this.getCarrierCode(),
                         carrier_title: this.getCarrierTitle(),
                         method_code: this.getMethodCode(),
                         method_title: this.getMethodTitle(),
@@ -67,7 +67,7 @@ define([
             return this.methodCode;
         },
 
-	getMethodTitle: function() {
+	    getMethodTitle: function() {
             return this.methodTitle;
         },
 
@@ -75,7 +75,7 @@ define([
             return this.carrierCode;
         },
 
-	getCarrierTitle: function() {
+	    getCarrierTitle: function() {
             return this.carrierTitle;
         },
 

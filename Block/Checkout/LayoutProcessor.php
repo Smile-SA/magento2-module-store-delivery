@@ -134,6 +134,8 @@ class LayoutProcessor implements LayoutProcessorInterface
                     'directionUrl' => $this->map->getDirectionUrl($address->getCoordinates()),
                     'setStoreData' => $this->getSetStorePostData($retailer),
                     'addressData' => $address->getData(),
+                    'postCode' => $address->getPostcode(),
+                    'city' => $address->getCity(),
                 ];
 
                 // phpcs:ignore Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge
