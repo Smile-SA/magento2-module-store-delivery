@@ -17,5 +17,9 @@
         <plugin name="gift_registry_quote_address_to_order_address" type="Smile\StoreDelivery\Plugin\Quote\Model\ConvertQuoteAddressToOrderAddress"/>
     </type>
 
+    <type name="Smile\StoreLocator\CustomerData\CurrentStore">
+        <plugin name="store-delivery_customerdata_currentstore_allow_store_delivery" type="Smile\StoreDelivery\Plugin\CustomerData\CurrentStorePlugin"/>
+    </type>
+
     <!-- Fix issue with Temando module : https://github.com/magento/magento2/issues/12921 - no more needed -->
 </config>

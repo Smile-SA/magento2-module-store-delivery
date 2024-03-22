@@ -33,7 +33,12 @@ define(
 
             var address = new storeDeliveryAddress(null, {});
             var currentStore = customerData.get('current-store');
-            if (currentStore() && currentStore().entity_id && currentStore().address_data) {
+            if (currentStore()
+                && currentStore().entity_id
+                && currentStore().address_data
+                // write address only if allow_store_delivery === 1 for currentStore in customerData
+                && currentStore().allow_store_delivery
+            ) {
                 var addressData = currentStore().address_data;
                 if ((addressData.company === undefined) && currentStore().name) {
                     addressData.company = currentStore().name;

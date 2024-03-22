@@ -51,40 +51,56 @@ class LayoutProcessor implements LayoutProcessorInterface
     public function process($jsLayout)
     {
         if ($this->carrierFactory->getIfActive($this->methodCode)) {
-            // @codingStandardsIgnoreStart
-            $storeDelivery = $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
-            ['children']['store-delivery'];
-            // @codingStandardsIgnoreEnd
+            $markers = $this->getStores();
 
-            $storeDelivery['provider'] = $this->map->getIdentifier();
-            $storeDelivery['markers'] = $this->getStores();
-            $storeDelivery = array_merge($storeDelivery, $this->map->getConfig());
+            if ($markers) {
+                // @codingStandardsIgnoreStart
+                $storeDelivery = $jsLayout['components']['checkout']['children']['steps']['children']
+                ['shipping-step']['children']['shippingAddress']['children']['address-list']
+                ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+                ['children']['store-delivery'];
+                // @codingStandardsIgnoreEnd
 
-            // @codingStandardsIgnoreStart
-            $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
-            ['children']['store-delivery'] = $storeDelivery;
-            // @codingStandardsIgnoreEnd
+                $storeDelivery['provider'] = $this->map->getIdentifier();
+                $storeDelivery['markers'] = $markers;
+                $storeDelivery['searchPlaceholderText'] = $this->storeLocatorHelper->getSearchPlaceholder();
+                $storeDelivery = array_merge($storeDelivery, $this->map->getConfig());
 
-            // @codingStandardsIgnoreStart
-            $geocoder = $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
-            ['children']['store-delivery']['children']['geocoder'];
-            // @codingStandardsIgnoreEnd
+                // @codingStandardsIgnoreStart
+                $jsLayout['components']['checkout']['children']['steps']['children']
+                ['shipping-step']['children']['shippingAddress']['children']['address-list']
+                ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+                ['children']['store-delivery'] = $storeDelivery;
+                // @codingStandardsIgnoreEnd
 
-            $geocoder['provider'] = $this->map->getIdentifier();
-            $geocoder = array_merge($geocoder, $this->map->getConfig());
+                // @codingStandardsIgnoreStart
+                $geocoder = $jsLayout['components']['checkout']['children']['steps']['children']
+                ['shipping-step']['children']['shippingAddress']['children']['address-list']
+                ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+                ['children']['store-delivery']['children']['geocoder'];
+                // @codingStandardsIgnoreEnd
 
-            // @codingStandardsIgnoreStart
-            $jsLayout['components']['checkout']['children']['steps']['children']
-            ['shipping-step']['children']['shippingAddress']['children']['address-list']
-            ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
-            ['children']['store-delivery']['children']['geocoder'] = $geocoder;
-            // @codingStandardsIgnoreEnd
+                $geocoder['provider'] = $this->map->getIdentifier();
+                $geocoder = array_merge($geocoder, $this->map->getConfig());
+
+                // @codingStandardsIgnoreStart
+                $jsLayout['components']['checkout']['children']['steps']['children']
+                ['shipping-step']['children']['shippingAddress']['children']['address-list']
+                ['rendererTemplates']['store-delivery']['children']['smile-store-delivery']
+                ['children']['store-delivery']['children']['geocoder'] = $geocoder;
+                // @codingStandardsIgnoreEnd
+            }
+
+            // unset store-delivery if $markers found
+            if (!$markers) {
+                unset($jsLayout['components']['checkout']['children']['steps']['children']
+                ['shipping-step']['children']['shippingAddress']['children']['address-list']
+                ['rendererTemplates']['store-delivery']);
+                unset($jsLayout['components']['checkout']['children']['steps']['children']
+                    ['shipping-step']['children']['smile-store-delivery-address-provider']);
+                unset($jsLayout['components']['checkout']['children']['sidebar']['children']
+                    ['shipping-information']['children']['ship-to']['rendererTemplates']['store-delivery']);
+            }
         }
 
         return $jsLayout;
@@ -118,6 +134,8 @@ class LayoutProcessor implements LayoutProcessorInterface
                     'directionUrl' => $this->map->getDirectionUrl($address->getCoordinates()),
                     'setStoreData' => $this->getSetStorePostData($retailer),
                     'addressData' => $address->getData(),
+                    'postCode' => $address->getPostcode(),
+                    'city' => $address->getCity(),
                 ];
 
                 // phpcs:ignore Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge
