@@ -87,51 +87,55 @@ body.checkout-index-index {
             .shop-search {
                 width: 250px;
                 height: 100%;
+
+                // TODO cleaning
                 .fulltext-search-wrapper {
-                    border-bottom: 1px solid #c2c2c2;
-                    height: @fulltext-search-wrapper-height;
-                    padding: @fulltext-search-wrapper-padding;
+                    padding: 10px;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
 
-                    .form {
-                        display: flex;
-                        padding: 10px 0 5px;
-                        align-items: center;
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        justify-content: center;
-
-                        .field {
-                            flex: 1;
+                    div.geolocalize-container {
+                        flex: 0 0 100%;
+                        a {
+                            width: 100%;
+                            text-align: center;
                         }
+                    }
 
-                        .actions-toolbar {
+                    .store-search-form {
+                        display: flex;
+                        margin-left: auto;
+                        align-items: center;
+                        flex: 0 0 100%;
+                        margin-top: 5px;
+                        .field {
+                            flex: 5;
+                        }
+                        .actions {
+                            flex:1;
+                            button {
+                                width: 100%;
 
-                            .primary .action {
-                                margin: 0;
-                                border-top-left-radius: 0px;
-                                border-bottom-left-radius: 0px;
-                                padding: 6px 15px;
-                                font-size: 1.4rem;
-                                span {
-                                    line-height: 1.3em;
+                                &:before {
+                                    content: '\e615';
+                                    font-family: 'luma-icons';
+                                    font-size: 16px;
+                                    color: #FFFFFF;
+                                    margin: 0;
+                                    vertical-align: top;
+                                    display: inline-block;
+                                    font-weight: normal;
+                                    overflow: hidden;
+                                    speak: none;
+                                    text-align: center;
+                                    -webkit-font-smoothing: antialiased;
+                                    -moz-osx-font-smoothing: antialiased;
                                 }
                             }
-                        }
-
-                        .geolocalize-container {
-                            flex: 0 0 100%;
-                            a {
-                                width:100%;
-                                text-align:center;
-                            }
-                        }
-
-                        .store-search-form {
-                            display: flex;
-                            margin-left: auto;
-                            align-items: center;
-                            flex: 0 0 100%;
-                            margin-top: 5px;
                         }
                     }
                 }
