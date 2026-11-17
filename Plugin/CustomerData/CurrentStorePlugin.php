@@ -18,7 +18,7 @@ class CurrentStorePlugin
         array $result
     ): array {
         $result['allow_store_delivery'] = 0;
-        /** @var DataObject|RetailerInterface|null $retailer */
+        /** @var (DataObject&RetailerInterface)|null $retailer */
         $retailer = $subject->getRetailer();
 
         if ($retailer) {
