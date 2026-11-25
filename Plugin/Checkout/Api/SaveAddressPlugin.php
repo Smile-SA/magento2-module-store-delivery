@@ -32,7 +32,7 @@ class SaveAddressPlugin
      */
     public function beforeSaveAddressInformation(
         ShippingInformationManagementInterface $subject,
-        mixed $cartId,
+        $cartId,
         ShippingInformationInterface $addressInformation
     ): void {
         /** @var Address $shippingAddress */

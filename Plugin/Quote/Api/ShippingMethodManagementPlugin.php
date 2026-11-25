@@ -22,9 +22,9 @@ class ShippingMethodManagementPlugin
     public function aroundEstimateByAddressId(
         ShippingMethodManagementInterface $subject,
         Closure $proceed,
-        mixed $cartId,
-        mixed $addressId
-    ): mixed {
+        $cartId,
+        $addressId
+    ) {
         $shippingMethods = $proceed($cartId, $addressId);
 
         /** @var ShippingMethodInterface $shippingMethod */
