@@ -23,9 +23,9 @@ class ShipmentEstimationPlugin
     public function aroundEstimateByExtendedAddress(
         ShipmentEstimationInterface $subject,
         Closure $proceed,
-        mixed $cartId,
+        $cartId,
         AddressInterface $address
-    ): mixed {
+    ) {
         $shippingMethods = $proceed($cartId, $address);
 
         // If shipping address is linked to a retailer, remove all methods except Store Delivery.
